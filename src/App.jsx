@@ -6,12 +6,32 @@ import FrameSelector from './components/FrameSelector';
 
 export default function App() {
   const [selectedTemplate, setSelectedTemplate] = useState(TEMPLATES[0]);
-  const [qrText, setQrText] = useState('https://exemple.com');
+  const [contentType, setContentType] = useState('url'); // 'url', 'wifi', 'email'
+  
+  // Champs de saisie
+  const [urlInput, setUrlInput] = useState('https://exemple.com');
+  const [wifiSsid, setWifiSsid] = useState('');
+  const [wifiPassword, setWifiPassword] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+
   const [selectedFrame, setSelectedFrame] = useState('simple-badge');
   const [frameText, setFrameText] = useState('SCAN ME !');
   const [customLogo, setCustomLogo] = useState(null);
 
   const cardRef = useRef(null);
+
+  // Construction de la donnée finale pour le QR code
+  const getQrData = () => {
+    if (contentType === 'wifi') {
+      if (!wifiSsid) return 'WIFI:S:MonReseau;T:WPA;P:motdepasse;;';
+      return `WIFI:S:${wifiSsid};T:WPA;P:${wifiPassword};;`;
+    }
+    if (contentType === 'email') {
+      if (!emailInput) return 'mailto:contact@exemple.com';
+      return `mailto:${emailInput}`;
+    }
+    return urlInput || 'https://exemple.com';
+  };
 
   const handleCustomLogoUpload = (e) => {
     const file = e.target.files[0];
@@ -41,14 +61,12 @@ export default function App() {
     }
   };
 
-  // Définition de la couleur du QR code selon le modèle
   const fgColor = selectedTemplate.dotsOptions?.color || '#000000';
   const bgColor = selectedTemplate.backgroundOptions?.color || '#ffffff';
 
-  // Composant QR Code réutilisable
   const renderQRCode = () => (
     <QRCodeSVG
-      value={qrText || 'https://exemple.com'}
+      value={getQrData()}
       size={180}
       fgColor={fgColor}
       bgColor={bgColor}
@@ -107,7 +125,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* STYLE 3: BLOC BAS (SCAN HERE) */}
+              {/* STYLE 3: BLOC BAS */}
               {selectedFrame === 'bottom-card' && (
                 <div className="border-4 border-slate-900 rounded-2xl bg-slate-900 overflow-hidden flex flex-col items-center">
                   <div className="bg-white p-4 w-full flex justify-center">
@@ -158,16 +176,105 @@ export default function App() {
 
           {/* Formulaire de configuration */}
           <div className="space-y-4">
+            
+            {/* Choix du type de contenu */}
             <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">Lien ou Texte du QR Code</label>
-              <input
-                type="text"
-                value={qrText}
-                onChange={(e) => setQrText(e.target.value)}
-                placeholder="https://votre-lien.com"
-                className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-              />
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                📌 Que voulez-vous partager ?
+              </label>
+              <div className="grid grid-cols-3 gap-2">
+                <button
+                  onClick={() => setContentType('url')}
+                  className={`p-2 text-xs font-medium rounded-lg border transition ${
+                    contentType === 'url'
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  🌐 Lien / Réseaux
+                </button>
+                <button
+                  onClick={() => setContentType('wifi')}
+                  className={`p-2 text-xs font-medium rounded-lg border transition ${
+                    contentType === 'wifi'
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  📶 Wi-Fi
+                </button>
+                <button
+                  onClick={() => setContentType('email')}
+                  className={`p-2 text-xs font-medium rounded-lg border transition ${
+                    contentType === 'email'
+                      ? 'bg-blue-600 text-white border-blue-600'
+                      : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                  }`}
+                >
+                  ✉️ E-mail
+                </button>
+              </div>
             </div>
+
+            {/* Champs dynamiques selon le type choisi */}
+            {contentType === 'url' && (
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-1">
+                  Lien web ou réseau social
+                </label>
+                <input
+                  type="text"
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  placeholder="https://instagram.com/moncompte"
+                  className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                />
+              </div>
+            )}
+
+            {contentType === 'wifi' && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">
+                    Nom du réseau Wi-Fi (SSID)
+                  </label>
+                  <input
+                    type="text"
+                    value={wifiSsid}
+                    onChange={(e) => setWifiSsid(e.target.value)}
+                    placeholder="Ex: MonWifiMaison"
+                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">
+                    Mot de passe
+                  </label>
+                  <input
+                    type="password"
+                    value={wifiPassword}
+                    onChange={(e) => setWifiPassword(e.target.value)}
+                    placeholder="Mot de passe du Wi-Fi"
+                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                  />
+                </div>
+              </div>
+            )}
+
+            {contentType === 'email' && (
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-1">
+                  Adresse E-mail
+                </label>
+                <input
+                  type="email"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  placeholder="contact@exemple.com"
+                  className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                />
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">
