@@ -53,7 +53,7 @@ export default function LandingPage({ onStart }) {
         
         {/* Badge bienvenue */}
         <div className="inline-flex items-center px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full text-blue-400 text-xs font-semibold tracking-wide">
-          ✨ Bienvenue sur SmartLab
+           Bienvenue sur SmartLab
         </div>
 
         {/* Titre responsive corrigé */}
@@ -72,7 +72,7 @@ export default function LandingPage({ onStart }) {
             onClick={onStart}
             className="w-full sm:w-auto px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-base md:text-lg rounded-2xl shadow-xl shadow-blue-600/30 transition active:scale-95 cursor-pointer"
           >
-            🚀 Créer mon QR code
+             👽 Créer mon QR code
           </button>
         </div>
 
