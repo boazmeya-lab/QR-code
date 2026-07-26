@@ -3,8 +3,11 @@ import { QRCodeSVG } from 'qrcode.react';
 import * as htmlToImage from 'html-to-image';
 import { TEMPLATES } from './data/templates';
 import FrameSelector from './components/FrameSelector';
+import LandingPage from './components/LandingPage';
 
 export default function App() {
+  const [showGenerator, setShowGenerator] = useState(false);
+
   const [selectedTemplate, setSelectedTemplate] = useState(TEMPLATES[0]);
   const [contentType, setContentType] = useState('url'); // 'url', 'wifi', 'email'
   
@@ -20,7 +23,10 @@ export default function App() {
 
   const cardRef = useRef(null);
 
-  // Construction de la donnée finale pour le QR code
+  if (!showGenerator) {
+    return <LandingPage onStart={() => setShowGenerator(true)} />;
+  }
+
   const getQrData = () => {
     if (contentType === 'wifi') {
       if (!wifiSsid) return 'WIFI:S:MonReseau;T:WPA;P:motdepasse;;';
@@ -53,7 +59,7 @@ export default function App() {
       });
 
       const link = document.createElement('a');
-      link.download = `qrcode-${Date.now()}.png`;
+      link.download = `smartlab-qrcode-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
@@ -88,19 +94,26 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-100 p-4 md:p-8 text-slate-800">
-      <header className="max-w-4xl mx-auto mb-6 text-center">
-        <h1 className="text-3xl font-extrabold text-slate-900">Générateur de QR Code Pro</h1>
-        <p className="text-slate-500 mt-1">Personnalisez votre QR code et choisissez son encadrement.</p>
+      <header className="max-w-4xl mx-auto mb-6 flex justify-between items-center">
+        <button
+          onClick={() => setShowGenerator(false)}
+          className="text-sm font-semibold text-slate-600 hover:text-slate-900 transition flex items-center gap-1 cursor-pointer"
+        >
+          ← Accueil
+        </button>
+        <span className="text-xs font-bold bg-blue-600 text-white px-3 py-1 rounded-full tracking-wide">
+          SmartLab QR
+        </span>
       </header>
 
       <main className="max-w-4xl mx-auto space-y-6">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           
-          {/* Zone d'aperçu dynamique du cadre */}
+          {/* Aperçu du rendu */}
           <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl border border-slate-100 min-h-[350px]">
             <div ref={cardRef} className="bg-white p-6 rounded-xl flex items-center justify-center">
               
-              {/* STYLE 1: BANNIÈRE À GAUCHE */}
+              {/* Cadres */}
               {selectedFrame === 'banner-left' && (
                 <div className="flex items-center border-4 border-slate-900 rounded-2xl overflow-hidden bg-slate-900 p-1">
                   <div className="px-5 py-4 text-white font-black text-lg tracking-wider uppercase text-center max-w-[130px] leading-tight">
@@ -112,7 +125,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* STYLE 2: BULLE / ONGLET À DROITE */}
               {selectedFrame === 'speech-right' && (
                 <div className="flex items-center gap-3">
                   <div className="border-4 border-slate-900 p-3 rounded-2xl bg-white shadow-sm">
@@ -125,7 +137,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* STYLE 3: BLOC BAS */}
               {selectedFrame === 'bottom-card' && (
                 <div className="border-4 border-slate-900 rounded-2xl bg-slate-900 overflow-hidden flex flex-col items-center">
                   <div className="bg-white p-4 w-full flex justify-center">
@@ -137,7 +148,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* STYLE 4: BADGE SUPÉRIEUR */}
               {selectedFrame === 'simple-badge' && (
                 <div className="relative flex flex-col items-center">
                   <div className="bg-slate-900 text-white font-extrabold text-xs uppercase px-5 py-1.5 rounded-t-xl tracking-widest shadow-sm z-10 -mb-2">
@@ -149,7 +159,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* STYLE 5: VISEUR / COINS */}
               {selectedFrame === 'corners' && (
                 <div className="relative p-6 flex flex-col items-center">
                   <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-slate-900 rounded-tl-xl" />
@@ -161,7 +170,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* SANS CADRE */}
               {selectedFrame === 'none' && renderQRCode()}
 
             </div>
@@ -174,10 +182,8 @@ export default function App() {
             </button>
           </div>
 
-          {/* Formulaire de configuration */}
+          {/* Formulaire */}
           <div className="space-y-4">
-            
-            {/* Choix du type de contenu */}
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-2">
                 📌 Que voulez-vous partager ?
@@ -216,7 +222,6 @@ export default function App() {
               </div>
             </div>
 
-            {/* Champs dynamiques selon le type choisi */}
             {contentType === 'url' && (
               <div>
                 <label className="block text-sm font-semibold text-slate-700 mb-1">
@@ -305,7 +310,7 @@ export default function App() {
           </div>
         </div>
 
-        {/* Galerie des couleurs / styles */}
+        {/* Galerie */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
           <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Couleurs & Thèmes</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
