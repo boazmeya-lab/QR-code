@@ -1,7 +1,7 @@
 import React from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 
-export default function LandingPage({ onStart }) {
+export default function LandingPage({ onStartCustom, onOpenGallery }) {
   const showcaseItems = [
     {
       type: 'simple-badge',
@@ -68,23 +68,30 @@ export default function LandingPage({ onStart }) {
 
         {/* Description */}
         <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-xl mx-auto px-2 break-words leading-relaxed">
-          Créez des QR codes encadrés et personnalisés pour vos liens, Wi-Fi et réseaux sociaux avec un aperçu instantané, puis téléchargez-les en haute définition.
+          Créez des QR codes encadrés pour vos liens, Wi-Fi et réseaux sociaux. Personnalisez-les vous-même ou choisissez un modèle prêt à l'emploi.
         </p>
 
-        {/* Bouton principal (#1D4ED8) */}
-        <div className="pt-2 px-2">
+        {/* Les 2 Boutons d'Action */}
+        <div className="flex flex-col sm:flex-row justify-center gap-3 pt-2 px-2">
           <button
-            onClick={onStart}
-            className="w-full sm:w-auto px-8 py-4 bg-[#1D4ED8] hover:bg-[#1e40af] text-white font-bold text-base md:text-lg rounded-2xl shadow-lg shadow-blue-700/25 transition duration-200 active:scale-95 cursor-pointer"
+            onClick={onStartCustom}
+            className="w-full sm:w-auto px-7 py-3.5 bg-[#1D4ED8] hover:bg-[#1e40af] text-white font-bold text-base rounded-2xl shadow-lg shadow-blue-700/20 transition duration-200 active:scale-95 cursor-pointer"
           >
-            🚀 Créer mon QR code
+            ✏️ Personnaliser soi-même
+          </button>
+          
+          <button
+            onClick={onOpenGallery}
+            className="w-full sm:w-auto px-7 py-3.5 bg-gray-100 hover:bg-gray-200 text-[#111827] border border-gray-300 font-bold text-base rounded-2xl transition duration-200 active:scale-95 cursor-pointer"
+          >
+            🎨 Voir les modèles
           </button>
         </div>
 
         {/* Défilé des QR Codes */}
         <div className="pt-8 w-full max-w-full overflow-hidden">
           <p className="text-[11px] uppercase tracking-widest text-gray-600 font-bold mb-4">
-            Aperçu direct parmi +30 combinaisons
+            Aperçu direct parmi nos modèles
           </p>
           
           <div className="relative w-full overflow-hidden py-3 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-10 before:bg-gradient-to-r before:from-[#FFFFFF] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-10 after:bg-gradient-to-l after:from-[#FFFFFF] after:to-transparent">
