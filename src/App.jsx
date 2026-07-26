@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import QRCodeStyling from 'qr-code-styling';
+import React, { useState, useRef } from 'react';
+import { QRCodeSVG } from 'qrcode.react';
 import * as htmlToImage from 'html-to-image';
 import { TEMPLATES } from './data/templates';
 import FrameSelector from './components/FrameSelector';
@@ -11,41 +11,7 @@ export default function App() {
   const [frameText, setFrameText] = useState('SCAN ME !');
   const [customLogo, setCustomLogo] = useState(null);
 
-  const qrRef = useRef(null);
   const cardRef = useRef(null);
-  const qrCodeInstance = useRef(null);
-
-  useEffect(() => {
-    qrCodeInstance.current = new QRCodeStyling({
-      width: 200,
-      height: 200,
-      type: 'svg',
-      qrOptions: { errorCorrectionLevel: 'H' }
-    });
-
-    if (qrRef.current) {
-      qrRef.current.innerHTML = '';
-      qrCodeInstance.current.append(qrRef.current);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!qrCodeInstance.current) return;
-
-    qrCodeInstance.current.update({
-      data: qrText || 'https://exemple.com',
-      image: customLogo || undefined,
-      dotsOptions: selectedTemplate.dotsOptions,
-      backgroundOptions: selectedTemplate.backgroundOptions,
-      cornersSquareOptions: selectedTemplate.cornersSquareOptions,
-      cornersDotOptions: selectedTemplate.cornersDotOptions,
-      imageOptions: {
-        crossOrigin: 'anonymous',
-        margin: 4,
-        imageSize: 0.25
-      }
-    });
-  }, [selectedTemplate, qrText, customLogo]);
 
   const handleCustomLogoUpload = (e) => {
     const file = e.target.files[0];
@@ -67,13 +33,40 @@ export default function App() {
       });
 
       const link = document.createElement('a');
-      link.download = `qrcode-design.png`;
+      link.download = `qrcode-${Date.now()}.png`;
       link.href = dataUrl;
       link.click();
     } catch (err) {
-      console.error('Erreur lors du téléchargement :', err);
+      console.error('Erreur téléchargement :', err);
     }
   };
+
+  // Définition de la couleur du QR code selon le modèle
+  const fgColor = selectedTemplate.dotsOptions?.color || '#000000';
+  const bgColor = selectedTemplate.backgroundOptions?.color || '#ffffff';
+
+  // Composant QR Code réutilisable
+  const renderQRCode = () => (
+    <QRCodeSVG
+      value={qrText || 'https://exemple.com'}
+      size={180}
+      fgColor={fgColor}
+      bgColor={bgColor}
+      level="H"
+      imageSettings={
+        customLogo
+          ? {
+              src: customLogo,
+              x: undefined,
+              y: undefined,
+              height: 36,
+              width: 36,
+              excavate: true,
+            }
+          : undefined
+      }
+    />
+  );
 
   return (
     <div className="min-h-screen bg-slate-100 p-4 md:p-8 text-slate-800">
@@ -92,22 +85,22 @@ export default function App() {
               {/* STYLE 1: BANNIÈRE À GAUCHE */}
               {selectedFrame === 'banner-left' && (
                 <div className="flex items-center border-4 border-slate-900 rounded-2xl overflow-hidden bg-slate-900 p-1">
-                  <div className="px-5 py-4 text-white font-black text-xl tracking-wider uppercase text-center max-w-[140px] leading-tight">
+                  <div className="px-5 py-4 text-white font-black text-lg tracking-wider uppercase text-center max-w-[130px] leading-tight">
                     {frameText}
                   </div>
                   <div className="bg-white p-3 rounded-xl">
-                    <div ref={qrRef} />
+                    {renderQRCode()}
                   </div>
                 </div>
               )}
 
               {/* STYLE 2: BULLE / ONGLET À DROITE */}
               {selectedFrame === 'speech-right' && (
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                   <div className="border-4 border-slate-900 p-3 rounded-2xl bg-white shadow-sm">
-                    <div ref={qrRef} />
+                    {renderQRCode()}
                   </div>
-                  <div className="relative bg-slate-900 text-white font-black text-base px-4 py-3 rounded-xl tracking-wide uppercase leading-tight max-w-[120px] text-center">
+                  <div className="relative bg-slate-900 text-white font-black text-sm px-4 py-3 rounded-xl tracking-wide uppercase leading-tight max-w-[120px] text-center">
                     <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-y-8 border-y-transparent border-r-8 border-r-slate-900" />
                     {frameText}
                   </div>
@@ -118,7 +111,7 @@ export default function App() {
               {selectedFrame === 'bottom-card' && (
                 <div className="border-4 border-slate-900 rounded-2xl bg-slate-900 overflow-hidden flex flex-col items-center">
                   <div className="bg-white p-4 w-full flex justify-center">
-                    <div ref={qrRef} />
+                    {renderQRCode()}
                   </div>
                   <div className="py-3 px-6 text-white font-black text-lg tracking-widest uppercase text-center">
                     {frameText}
@@ -126,14 +119,14 @@ export default function App() {
                 </div>
               )}
 
-              {/* STYLE 4: BADGE SUPERIEUR */}
+              {/* STYLE 4: BADGE SUPÉRIEUR */}
               {selectedFrame === 'simple-badge' && (
                 <div className="relative flex flex-col items-center">
                   <div className="bg-slate-900 text-white font-extrabold text-xs uppercase px-5 py-1.5 rounded-t-xl tracking-widest shadow-sm z-10 -mb-2">
                     {frameText}
                   </div>
                   <div className="p-4 bg-white rounded-2xl border-4 border-slate-900 shadow-md">
-                    <div ref={qrRef} />
+                    {renderQRCode()}
                   </div>
                 </div>
               )}
@@ -145,15 +138,13 @@ export default function App() {
                   <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-slate-900 rounded-tr-xl" />
                   <div className="absolute bottom-8 left-0 w-8 h-8 border-b-4 border-l-4 border-slate-900 rounded-bl-xl" />
                   <div className="absolute bottom-8 right-0 w-8 h-8 border-b-4 border-r-4 border-slate-900 rounded-br-xl" />
-                  <div ref={qrRef} />
+                  {renderQRCode()}
                   <p className="mt-4 font-black text-xs text-slate-900 uppercase tracking-widest">{frameText}</p>
                 </div>
               )}
 
               {/* SANS CADRE */}
-              {selectedFrame === 'none' && (
-                <div ref={qrRef} />
-              )}
+              {selectedFrame === 'none' && renderQRCode()}
 
             </div>
 
@@ -207,9 +198,9 @@ export default function App() {
           </div>
         </div>
 
-        {/* Galerie des modèles */}
+        {/* Galerie des couleurs / styles */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-          <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Style des points & couleurs</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Couleurs & Thèmes</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {TEMPLATES.map((tmpl) => (
               <button
