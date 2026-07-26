@@ -15,15 +15,12 @@ export default function App() {
   const cardRef = useRef(null);
   const qrCodeInstance = useRef(null);
 
-  // Initialisation unique du générateur
   useEffect(() => {
     qrCodeInstance.current = new QRCodeStyling({
-      width: 220,
-      height: 220,
-      type: 'svg', // SVG garantit la compatibilité et le rendu instantané sur iOS
-      qrOptions: {
-        errorCorrectionLevel: 'H' // Évite d'endommager la lisibilité du QR code
-      }
+      width: 200,
+      height: 200,
+      type: 'svg',
+      qrOptions: { errorCorrectionLevel: 'H' }
     });
 
     if (qrRef.current) {
@@ -32,7 +29,6 @@ export default function App() {
     }
   }, []);
 
-  // Mise à jour dynamique des styles
   useEffect(() => {
     if (!qrCodeInstance.current) return;
 
@@ -67,7 +63,7 @@ export default function App() {
       const dataUrl = await htmlToImage.toPng(cardRef.current, {
         quality: 1,
         pixelRatio: 3,
-        backgroundColor: '#f8fafc'
+        backgroundColor: '#ffffff'
       });
 
       const link = document.createElement('a');
@@ -83,61 +79,87 @@ export default function App() {
     <div className="min-h-screen bg-slate-100 p-4 md:p-8 text-slate-800">
       <header className="max-w-4xl mx-auto mb-6 text-center">
         <h1 className="text-3xl font-extrabold text-slate-900">Générateur de QR Code Pro</h1>
-        <p className="text-slate-500 mt-1">Choisissez un style, personnalisez le texte et téléchargez votre photo.</p>
+        <p className="text-slate-500 mt-1">Personnalisez votre QR code et choisissez son encadrement.</p>
       </header>
 
       <main className="max-w-4xl mx-auto space-y-6">
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
           
-          {/* Aperçu du rendu avec encadrement */}
-          <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl border border-slate-100">
-            <div ref={cardRef} className="bg-slate-50 p-6 rounded-xl flex flex-col items-center justify-center">
-              <div className="relative flex flex-col items-center justify-center">
-                
-                {/* Style Badge */}
-                {selectedFrame === 'simple-badge' && (
-                  <div className="bg-slate-900 text-white font-bold text-xs uppercase px-4 py-1.5 rounded-t-xl tracking-wider shadow-sm z-10 -mb-2">
+          {/* Zone d'aperçu dynamique du cadre */}
+          <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl border border-slate-100 min-h-[350px]">
+            <div ref={cardRef} className="bg-white p-6 rounded-xl flex items-center justify-center">
+              
+              {/* STYLE 1: BANNIÈRE À GAUCHE */}
+              {selectedFrame === 'banner-left' && (
+                <div className="flex items-center border-4 border-slate-900 rounded-2xl overflow-hidden bg-slate-900 p-1">
+                  <div className="px-5 py-4 text-white font-black text-xl tracking-wider uppercase text-center max-w-[140px] leading-tight">
                     {frameText}
                   </div>
-                )}
-
-                {/* Style Viseur */}
-                {selectedFrame === 'corners' && (
-                  <>
-                    <div className="absolute top-0 left-0 w-6 h-6 border-t-4 border-l-4 border-slate-900 rounded-tl-lg" />
-                    <div className="absolute top-0 right-0 w-6 h-6 border-t-4 border-r-4 border-slate-900 rounded-tr-lg" />
-                    <div className="absolute bottom-6 left-0 w-6 h-6 border-b-4 border-l-4 border-slate-900 rounded-bl-lg" />
-                    <div className="absolute bottom-6 right-0 w-6 h-6 border-b-4 border-r-4 border-slate-900 rounded-br-lg" />
-                  </>
-                )}
-
-                {/* Conteneur principal */}
-                <div
-                  className={`p-4 rounded-2xl transition-all ${
-                    selectedFrame === 'simple-badge'
-                      ? 'border-4 border-slate-900 shadow-md bg-white'
-                      : selectedFrame === 'classic-card'
-                      ? 'border-2 border-slate-300 shadow-lg bg-white'
-                      : 'bg-white'
-                  }`}
-                >
-                  <div ref={qrRef} className="flex justify-center items-center" />
+                  <div className="bg-white p-3 rounded-xl">
+                    <div ref={qrRef} />
+                  </div>
                 </div>
+              )}
 
-                {/* Texte bas */}
-                {selectedFrame === 'classic-card' && (
-                  <p className="mt-3 font-semibold text-sm text-slate-800 tracking-wide">{frameText}</p>
-                )}
+              {/* STYLE 2: BULLE / ONGLET À DROITE */}
+              {selectedFrame === 'speech-right' && (
+                <div className="flex items-center gap-2">
+                  <div className="border-4 border-slate-900 p-3 rounded-2xl bg-white shadow-sm">
+                    <div ref={qrRef} />
+                  </div>
+                  <div className="relative bg-slate-900 text-white font-black text-base px-4 py-3 rounded-xl tracking-wide uppercase leading-tight max-w-[120px] text-center">
+                    <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-y-8 border-y-transparent border-r-8 border-r-slate-900" />
+                    {frameText}
+                  </div>
+                </div>
+              )}
 
-                {selectedFrame === 'corners' && (
-                  <p className="mt-3 font-bold text-xs text-slate-900 uppercase tracking-widest">{frameText}</p>
-                )}
-              </div>
+              {/* STYLE 3: BLOC BAS (SCAN HERE) */}
+              {selectedFrame === 'bottom-card' && (
+                <div className="border-4 border-slate-900 rounded-2xl bg-slate-900 overflow-hidden flex flex-col items-center">
+                  <div className="bg-white p-4 w-full flex justify-center">
+                    <div ref={qrRef} />
+                  </div>
+                  <div className="py-3 px-6 text-white font-black text-lg tracking-widest uppercase text-center">
+                    {frameText}
+                  </div>
+                </div>
+              )}
+
+              {/* STYLE 4: BADGE SUPERIEUR */}
+              {selectedFrame === 'simple-badge' && (
+                <div className="relative flex flex-col items-center">
+                  <div className="bg-slate-900 text-white font-extrabold text-xs uppercase px-5 py-1.5 rounded-t-xl tracking-widest shadow-sm z-10 -mb-2">
+                    {frameText}
+                  </div>
+                  <div className="p-4 bg-white rounded-2xl border-4 border-slate-900 shadow-md">
+                    <div ref={qrRef} />
+                  </div>
+                </div>
+              )}
+
+              {/* STYLE 5: VISEUR / COINS */}
+              {selectedFrame === 'corners' && (
+                <div className="relative p-6 flex flex-col items-center">
+                  <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-slate-900 rounded-tl-xl" />
+                  <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-slate-900 rounded-tr-xl" />
+                  <div className="absolute bottom-8 left-0 w-8 h-8 border-b-4 border-l-4 border-slate-900 rounded-bl-xl" />
+                  <div className="absolute bottom-8 right-0 w-8 h-8 border-b-4 border-r-4 border-slate-900 rounded-br-xl" />
+                  <div ref={qrRef} />
+                  <p className="mt-4 font-black text-xs text-slate-900 uppercase tracking-widest">{frameText}</p>
+                </div>
+              )}
+
+              {/* SANS CADRE */}
+              {selectedFrame === 'none' && (
+                <div ref={qrRef} />
+              )}
+
             </div>
 
             <button
               onClick={handleDownload}
-              className="mt-4 w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition shadow-sm cursor-pointer text-center"
+              className="mt-6 w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition shadow-sm cursor-pointer text-center"
             >
               📲 Enregistrer la photo
             </button>
@@ -158,7 +180,7 @@ export default function App() {
 
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-1">
-                🖼️ Importer un logo au centre
+                🖼️ Importer un logo central
               </label>
               <input
                 type="file"
@@ -185,9 +207,9 @@ export default function App() {
           </div>
         </div>
 
-        {/* Galerie des modèles pré-construits */}
+        {/* Galerie des modèles */}
         <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-          <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Modèles & Styles de QR Code</h2>
+          <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Style des points & couleurs</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {TEMPLATES.map((tmpl) => (
               <button
