@@ -4,145 +4,23 @@ export const TEMPLATES = [
     title: 'Instagram Rose / Violet',
     type: 'url',
     data: 'https://instagram.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/174/174855.png',
+    image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="%23E1306C" d="M224.1 141.1c-43.6 0-78.8 35.3-78.8 78.9s35.2 78.9 78.8 78.9 78.8-35.3 78.8-78.9-35.2-78.9-78.8-78.9zm0 129.7c-28 0-50.8-22.8-50.8-50.8 0-28 22.8-50.8 50.8-50.8s50.8 22.8 50.8 50.8c0 28-22.8 50.8-50.8 50.8zm120-137.5c0 10.1-8.2 18.3-18.3 18.3-10.1 0-18.3-8.2-18.3-18.3 0-10.1 8.2-18.3 18.3-18.3 10.1 0 18.3 8.2 18.3 18.3zm57.1 18.3c-1.5-32.3-8.9-60.8-32.6-84.5-23.7-23.7-52.2-31.1-84.5-32.6-33.3-1.9-133.3-1.9-166.6 0-32.3 1.5-60.8 8.9-84.5 32.6-23.7 23.7-31.1 52.2-32.6 84.5-1.9 33.3-1.9 133.3 0 166.6 1.5 32.3 8.9 60.8 32.6 84.5 23.7 23.7 52.2 31.1 84.5 32.6 33.3 1.9 133.3 1.9 166.6 0 32.3-1.5 60.8-8.9 84.5-32.6 23.7-23.7 31.1-52.2 32.6-84.5 1.9-33.3 1.9-133.3 0-166.6zm-45.9 196c-7 17.7-20.7 31.3-38.4 38.4-28.3 11.2-95.6 8.6-126.8 8.6s-98.6 2.5-126.8-8.6c-17.7-7-31.3-20.7-38.4-38.4-11.2-28.3-8.6-95.6-8.6-126.8s-2.5-98.6 11.2-126.8c7-17.7 20.7-31.3 38.4-38.4 28.3-11.2 95.6-8.6 126.8-8.6s98.6-2.5 126.8 8.6c17.7 7 31.3 20.7 38.4 38.4 11.2 28.3 8.6 95.6 8.6 126.8s2.5 98.6-11.2 126.8z"/></svg>',
     dotsOptions: { color: '#833AB4', type: 'rounded' },
     backgroundOptions: { color: '#ffffff' },
     cornersSquareOptions: { color: '#E1306C', type: 'extra-rounded' },
     cornersDotOptions: { color: '#FD1D1D' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 5 }
+    imageOptions: { hideBackgroundDots: true, imageSize: 0.35, margin: 4 }
   },
   {
     id: 'whatsapp-green',
     title: 'WhatsApp Vert',
     type: 'url',
     data: 'https://wa.me/',
-    image: 'https://cdn-icons-png.flaticon.com/512/733/733585.png',
+    image: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="%2325D366" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3 18.6-68.1-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>',
     dotsOptions: { color: '#25D366', type: 'dots' },
     backgroundOptions: { color: '#ffffff' },
     cornersSquareOptions: { color: '#128C7E', type: 'dot' },
     cornersDotOptions: { color: '#075E54' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 5 }
-  },
-  {
-    id: 'facebook-blue',
-    title: 'Facebook Bleu',
-    type: 'url',
-    data: 'https://facebook.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/733/733547.png',
-    dotsOptions: { color: '#1877F2', type: 'rounded' },
-    backgroundOptions: { color: '#ffffff' },
-    cornersSquareOptions: { color: '#0F52BA', type: 'square' },
-    cornersDotOptions: { color: '#1877F2' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 5 }
-  },
-  {
-    id: 'tiktok-dark',
-    title: 'TikTok Neon',
-    type: 'url',
-    data: 'https://tiktok.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/3046/3046121.png',
-    dotsOptions: { color: '#00F2FE', type: 'classy-rounded' },
-    backgroundOptions: { color: '#000000' },
-    cornersSquareOptions: { color: '#FF0050', type: 'extra-rounded' },
-    cornersDotOptions: { color: '#00F2FE' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 5 }
-  },
-  {
-    id: 'youtube-red',
-    title: 'YouTube Rouge',
-    type: 'url',
-    data: 'https://youtube.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/1384/1384060.png',
-    dotsOptions: { color: '#FF0000', type: 'rounded' },
-    backgroundOptions: { color: '#ffffff' },
-    cornersSquareOptions: { color: '#CC0000', type: 'square' },
-    cornersDotOptions: { color: '#FF0000' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 5 }
-  },
-  {
-    id: 'wifi-blue',
-    title: 'Wi-Fi Accès Direct',
-    type: 'wifi',
-    data: 'WIFI:S:MonRéseau;T:WPA;P:motdepasse;;',
-    image: 'https://cdn-icons-png.flaticon.com/512/93/93158.png',
-    dotsOptions: { color: '#007AFF', type: 'classy' },
-    backgroundOptions: { color: '#f8fafc' },
-    cornersSquareOptions: { color: '#004080', type: 'extra-rounded' },
-    cornersDotOptions: { color: '#007AFF' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.35, margin: 5 }
-  },
-  {
-    id: 'linkedin-business',
-    title: 'LinkedIn Pro',
-    type: 'url',
-    data: 'https://linkedin.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/174/174857.png',
-    dotsOptions: { color: '#0A66C2', type: 'square' },
-    backgroundOptions: { color: '#ffffff' },
-    cornersSquareOptions: { color: '#004182', type: 'square' },
-    cornersDotOptions: { color: '#0A66C2' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 5 }
-  },
-  {
-    id: 'twitter-x',
-    title: 'X / Twitter Noir',
-    type: 'url',
-    data: 'https://x.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/5968/5968830.png',
-    dotsOptions: { color: '#000000', type: 'dots' },
-    backgroundOptions: { color: '#ffffff' },
-    cornersSquareOptions: { color: '#000000', type: 'dot' },
-    cornersDotOptions: { color: '#000000' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.35, margin: 5 }
-  },
-  {
-    id: 'website-globe',
-    title: 'Site Web Général',
-    type: 'url',
-    data: 'https://google.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/1006/1006771.png',
-    dotsOptions: { color: '#4F46E5', type: 'rounded' },
-    backgroundOptions: { color: '#EEF2FF' },
-    cornersSquareOptions: { color: '#3730A3', type: 'extra-rounded' },
-    cornersDotOptions: { color: '#4F46E5' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.35, margin: 5 }
-  },
-  {
-    id: 'email-envelope',
-    title: 'Email Direct',
-    type: 'email',
-    data: 'mailto:contact@exemple.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/732/732200.png',
-    dotsOptions: { color: '#EA4335', type: 'classy-rounded' },
-    backgroundOptions: { color: '#ffffff' },
-    cornersSquareOptions: { color: '#B31412', type: 'extra-rounded' },
-    cornersDotOptions: { color: '#EA4335' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.35, margin: 5 }
-  },
-  {
-    id: 'snapchat-yellow',
-    title: 'Snapchat Jaune',
-    type: 'url',
-    data: 'https://snapchat.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/174/174870.png',
-    dotsOptions: { color: '#000000', type: 'dots' },
-    backgroundOptions: { color: '#FFFC00' },
-    cornersSquareOptions: { color: '#000000', type: 'square' },
-    cornersDotOptions: { color: '#000000' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 5 }
-  },
-  {
-    id: 'spotify-music',
-    title: 'Spotify Musique',
-    type: 'url',
-    data: 'https://spotify.com',
-    image: 'https://cdn-icons-png.flaticon.com/512/174/174872.png',
-    dotsOptions: { color: '#1DB954', type: 'rounded' },
-    backgroundOptions: { color: '#121212' },
-    cornersSquareOptions: { color: '#1DB954', type: 'extra-rounded' },
-    cornersDotOptions: { color: '#1DB954' },
-    imageOptions: { hideBackgroundDots: true, imageSize: 0.4, margin: 5 }
+    imageOptions: { hideBackgroundDots: true, imageSize: 0.35, margin: 4 }
   }
 ];
-    
-
