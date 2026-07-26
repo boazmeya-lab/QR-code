@@ -2,9 +2,11 @@ import React from 'react';
 
 export const FRAMES = [
   { id: 'none', label: 'Sans cadre' },
-  { id: 'simple-badge', label: 'Badge "SCAN ME!"' },
-  { id: 'classic-card', label: 'Carte arrondie + Texte' },
-  { id: 'corners', label: 'Viseur / Coins' }
+  { id: 'simple-badge', label: 'Badge Haut' },
+  { id: 'bottom-card', label: 'Bloc Bas (SCAN HERE)' },
+  { id: 'banner-left', label: 'Bannière Gauche' },
+  { id: 'speech-right', label: 'Bulle Droite' },
+  { id: 'corners', label: 'Viseur / Coins' },
 ];
 
 export default function FrameSelector({ selectedFrame, onSelectFrame, frameText, setFrameText }) {
