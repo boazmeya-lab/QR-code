@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import QRCodeStyling from 'qr-code-styling';
-import TypeSelector from '../components/TypeSelector';
-import FormSelection from '../components/FormSelection';
-import ModelGrid from '../components/ModelGrid';
-import Customizer from '../components/Customizer';
-import DownloadModal from '../components/DownloadModal';
+import TypeSelector from './components/TypeSelector';
+import FormSelection from './components/FormSelection';
+import ModelGrid from './components/ModelGrid';
+import Customizer from './components/Customizer';
+import DownloadModal from './components/DownloadModal';
 import { TEMPLATES } from './data/templates';
+
 
 
 export default function App() {
