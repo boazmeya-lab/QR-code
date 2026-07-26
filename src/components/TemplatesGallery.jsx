@@ -1,160 +1,160 @@
 import React from 'react';
-import { QRCodeSVG } from 'qrcode.react';
 
 export const PRESET_TEMPLATES = [
   {
     id: 'badge-classic',
     title: 'Badge Classic',
-    category: 'Réseaux & Web',
+    category: 'ESSENTIEL',
     frame: 'simple-badge',
     frameText: 'SCANNE-MOI',
     color: '#111827',
+    bgColor: '#ffffff',
+    description: 'Style intemporel parfait pour tout type de lien'
   },
   {
-    id: 'banner-instagram',
-    title: 'Bannière Insta',
-    category: 'Réseaux Sociaux',
-    frame: 'banner-left',
+    id: 'insta-card',
+    title: 'Instagram Pro',
+    category: 'RÉSEAUX',
+    frame: 'pill-top-pink',
     frameText: 'INSTAGRAM',
-    color: '#e1306c',
+    color: '#E000FF',
+    bgColor: '#ffffff',
+    description: 'Design néon rose & violet pour réseaux sociaux'
   },
   {
-    id: 'speech-restaurant',
-    title: 'Menu Restaurant',
-    category: 'Business',
-    frame: 'speech-right',
-    frameText: 'MENU 🍕',
-    color: '#d97706',
+    id: 'web-blue',
+    title: 'Site Web Pro',
+    category: 'BUSINESS',
+    frame: 'tag-blue',
+    frameText: 'VISITEZ LE SITE',
+    color: '#0052CC',
+    bgColor: '#ffffff',
+    description: 'Style épuré bleu roi avec icône web'
   },
   {
-    id: 'bottom-wifi',
-    title: 'Connexion Wi-Fi',
-    category: 'Pratique',
+    id: 'whatsapp-green',
+    title: 'Contact WhatsApp',
+    category: 'COMMUNICATION',
+    frame: 'corners',
+    frameText: 'DISCUTER SUR WA',
+    color: '#00B578',
+    bgColor: '#ffffff',
+    description: 'Format idéal pour la messagerie WhatsApp'
+  },
+  {
+    id: 'promo-gradient',
+    title: 'Offre Promo',
+    category: 'COMMERCE',
+    frame: 'rounded-gradient',
+    frameText: 'PROMO -20%',
+    color: '#FF3B00',
+    bgColor: '#ffffff',
+    description: 'Contour dégradé attrayant pour attirer les ventes'
+  },
+  {
+    id: 'red-solid',
+    title: 'Carte Rouge VIP',
+    category: 'ÉVÉNEMENT',
+    frame: 'card-red',
+    frameText: 'RÉSERVER',
+    color: '#FF0055',
+    bgColor: '#ffffff',
+    description: 'Carte rouge vif avec texte en bas'
+  },
+  {
+    id: 'wifi-card',
+    title: 'Accès Wi-Fi',
+    category: 'PRATIQUE',
     frame: 'bottom-card',
     frameText: 'WIFI GRATUIT',
     color: '#1D4ED8',
+    bgColor: '#ffffff',
+    description: 'Génération automatique pour bornes et Wi-Fi'
   },
   {
-    id: 'corners-promo',
-    title: 'Viseur Promo',
-    category: 'Commerce',
-    frame: 'corners',
-    frameText: 'PROMO -20%',
-    color: '#dc2626',
-  },
-  {
-    id: 'banner-website',
-    title: 'Visitez le site',
-    category: 'Business',
-    frame: 'banner-left',
-    frameText: 'WEB SITE',
-    color: '#2563EB',
+    id: 'menu-restaurant',
+    title: 'Menu Restaurant',
+    category: 'RESTAURATION',
+    frame: 'speech-right',
+    frameText: 'MENU 🍕',
+    color: '#D97706',
+    bgColor: '#ffffff',
+    description: 'Affichette idéale pour tables et comptoirs'
   }
 ];
 
 export default function TemplatesGallery({ onSelectPreset, onBack }) {
   return (
-    <div className="min-h-screen bg-[#FFFFFF] text-[#111827] p-4 md:p-8 font-sans">
-      <header className="max-w-5xl mx-auto flex items-center justify-between pb-6 border-b border-gray-100">
-        <button
-          onClick={onBack}
-          className="text-sm font-semibold text-[#1D4ED8] hover:underline flex items-center gap-1"
-        >
-          ← Retour à l'accueil
-        </button>
-        <h1 className="text-xl font-black text-[#111827]">Modèles prêts à l'emploi</h1>
-      </header>
-
-      <main className="max-w-5xl mx-auto py-8">
-        <p className="text-center text-gray-600 text-sm md:text-base mb-8">
-          Choisissez un modèle prédéfini pour lancer directement l'éditeur avec ce style.
-        </p>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {PRESET_TEMPLATES.map((preset) => (
-            <div
-              key={preset.id}
-              className="bg-gray-50 border border-gray-200 rounded-2xl p-6 flex flex-col items-center justify-between hover:border-[#2563EB] hover:shadow-md transition cursor-pointer"
-              onClick={() => onSelectPreset(preset)}
-            >
-              <span className="text-[10px] uppercase font-bold tracking-widest text-[#2563EB] bg-blue-50 px-2.5 py-1 rounded-full mb-4">
-                {preset.category}
-              </span>
-
-              {/* Aperçu QR Code */}
-              <div className="bg-white p-4 rounded-xl border border-gray-200 flex flex-col items-center justify-center my-2 shadow-inner">
-                {preset.frame === 'simple-badge' && (
-                  <div className="relative flex flex-col items-center">
-                    <div className="bg-[#111827] text-white font-extrabold text-[9px] uppercase px-2.5 py-0.5 rounded-t-md tracking-widest z-10 -mb-1">
-                      {preset.frameText}
-                    </div>
-                    <div className="p-2 bg-white rounded-lg border-2 border-[#111827]">
-                      <QRCodeSVG value="https://smartlab.site" size={100} fgColor={preset.color} />
-                    </div>
-                  </div>
-                )}
-
-                {preset.frame === 'banner-left' && (
-                  <div className="flex items-center border-2 border-[#111827] rounded-xl overflow-hidden bg-[#111827] p-0.5">
-                    <div className="px-2 py-1 text-white font-black text-[10px] tracking-wider uppercase text-center max-w-[70px] leading-tight">
-                      {preset.frameText}
-                    </div>
-                    <div className="bg-white p-1 rounded-lg">
-                      <QRCodeSVG value="https://smartlab.site" size={90} fgColor={preset.color} />
-                    </div>
-                  </div>
-                )}
-
-                {preset.frame === 'speech-right' && (
-                  <div className="flex items-center gap-2">
-                    <div className="border-2 border-[#111827] p-1.5 rounded-xl bg-white">
-                      <QRCodeSVG value="https://smartlab.site" size={90} fgColor={preset.color} />
-                    </div>
-                    <div className="relative bg-[#111827] text-white font-black text-[9px] px-2 py-1.5 rounded-lg uppercase text-center max-w-[65px]">
-                      {preset.frameText}
-                    </div>
-                  </div>
-                )}
-
-                {preset.frame === 'bottom-card' && (
-                  <div className="border-2 border-[#111827] rounded-xl bg-[#111827] overflow-hidden flex flex-col items-center">
-                    <div className="bg-white p-1.5 w-full flex justify-center">
-                      <QRCodeSVG value="https://smartlab.site" size={90} fgColor={preset.color} />
-                    </div>
-                    <div className="py-1 px-2 text-white font-black text-[10px] tracking-widest uppercase text-center">
-                      {preset.frameText}
-                    </div>
-                  </div>
-                )}
-
-                {preset.frame === 'corners' && (
-                  <div className="relative p-3 flex flex-col items-center">
-                    <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#111827] rounded-tl-sm" />
-                    <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#111827] rounded-tr-sm" />
-                    <div className="absolute bottom-6 left-0 w-4 h-4 border-b-2 border-l-2 border-[#111827] rounded-bl-sm" />
-                    <div className="absolute bottom-6 right-0 w-4 h-4 border-b-2 border-r-2 border-[#111827] rounded-br-sm" />
-                    <QRCodeSVG value="https://smartlab.site" size={90} fgColor={preset.color} />
-                    <p className="mt-1 font-black text-[9px] text-[#111827] uppercase tracking-widest">{preset.frameText}</p>
-                  </div>
-                )}
-              </div>
-
-              <div className="mt-4 text-center w-full">
-                <h3 className="font-bold text-[#111827] text-base">{preset.title}</h3>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectPreset(preset);
-                  }}
-                  className="mt-3 w-full py-2 bg-[#1D4ED8] hover:bg-[#1e40af] text-white font-bold text-xs rounded-xl shadow-sm transition"
-                >
-                  Utiliser ce modèle
-                </button>
-              </div>
-            </div>
-          ))}
+    <div className="min-h-screen bg-slate-50 text-slate-900 p-4 sm:p-8 font-sans">
+      {/* En-tête */}
+      <div className="max-w-6xl mx-auto mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-200 pb-4">
+        <div>
+          <button
+            onClick={onBack}
+            className="text-sm font-bold text-[#1D4ED8] hover:underline mb-2 inline-block cursor-pointer"
+          >
+            ← Retour au générateur
+          </button>
+          <h1 className="text-2xl sm:text-3xl font-black text-slate-900">
+            Galerie des modèles
+          </h1>
+          <p className="text-slate-500 text-sm">
+            Choisissez un modèle prêt à l'emploi et personnalisez-le en 1 clic.
+          </p>
         </div>
-      </main>
+        <span className="bg-blue-100 text-[#1D4ED8] text-xs font-bold px-3.5 py-1.5 rounded-full">
+          {PRESET_TEMPLATES.length} Modèles disponibles
+        </span>
+      </div>
+
+      {/* Grille de cartes */}
+      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {PRESET_TEMPLATES.map((preset) => (
+          <div
+            key={preset.id}
+            className="bg-white border border-slate-200 rounded-2xl p-5 flex flex-col justify-between shadow-sm hover:shadow-md transition duration-200"
+          >
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <span className="text-[10px] font-black tracking-wider uppercase bg-slate-100 text-slate-600 px-2.5 py-1 rounded-md">
+                  {preset.category}
+                </span>
+              </div>
+
+              {/* Aperçu visuel simplifié */}
+              <div className="bg-slate-50 rounded-xl p-6 border border-slate-100 flex items-center justify-center my-4 min-h-[160px]">
+                <div
+                  className="p-3 rounded-xl border-2 flex flex-col items-center justify-center shadow-inner"
+                  style={{ borderColor: preset.color, backgroundColor: '#ffffff' }}
+                >
+                  <div
+                    className="w-16 h-16 rounded-lg flex items-center justify-center font-black text-xs text-white"
+                    style={{ backgroundColor: preset.color }}
+                  >
+                    QR CODE
+                  </div>
+                  <span
+                    className="mt-2 text-[9px] font-extrabold uppercase tracking-wider"
+                    style={{ color: preset.color }}
+                  >
+                    {preset.frameText}
+                  </span>
+                </div>
+              </div>
+
+              <h3 className="font-bold text-slate-900 text-lg mb-1">{preset.title}</h3>
+              <p className="text-slate-500 text-xs leading-relaxed mb-4">{preset.description}</p>
+            </div>
+
+            <button
+              onClick={() => onSelectPreset(preset)}
+              className="w-full py-3 bg-[#1D4ED8] hover:bg-[#1e40af] text-white font-bold text-sm rounded-xl transition shadow-sm cursor-pointer"
+            >
+              Utiliser ce modèle
+            </button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
