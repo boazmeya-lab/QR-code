@@ -128,10 +128,10 @@ export default function App() {
         <main className="max-w-3xl mx-auto text-center space-y-6 my-auto py-8 w-full px-2">
           <div className="flex flex-wrap justify-center gap-2">
             <span className="inline-flex items-center px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-[#2563EB] text-xs font-semibold">
-              ⚡ Aperçu en temps réel
+                 Aperçu en temps réel
             </span>
             <span className="inline-flex items-center px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-[#1D4ED8] text-xs font-semibold">
-              🎨 Modèles personnalisables
+                 Modèles personnalisables
             </span>
           </div>
 
@@ -148,13 +148,13 @@ export default function App() {
               onClick={() => setCurrentView('editor')}
               className="w-full sm:w-auto px-7 py-3.5 bg-[#1D4ED8] hover:bg-[#1e40af] text-white font-bold text-base rounded-2xl shadow-lg shadow-blue-700/20 transition duration-200 active:scale-95 cursor-pointer"
             >
-              ✏️ Personnaliser soi-même
+                Personnaliser soi-même
             </button>
             <button
               onClick={() => setCurrentView('gallery')}
               className="w-full sm:w-auto px-7 py-3.5 bg-gray-100 hover:bg-gray-200 text-[#111827] border border-gray-300 font-bold text-base rounded-2xl transition duration-200 active:scale-95 cursor-pointer"
             >
-              🎨 Voir les modèles
+                Voir les modèles
             </button>
           </div>
 
