@@ -6,13 +6,11 @@ import FrameSelector from './components/FrameSelector';
 import TemplatesGallery from './components/TemplatesGallery';
 
 export default function App() {
-  // Navigation: 'home' | 'gallery' | 'editor'
   const [currentView, setCurrentView] = useState('home');
 
-  // États du générateur
   const [selectedTemplate, setSelectedTemplate] = useState(TEMPLATES[0]);
-  const [customColor, setCustomColor] = useState(null); // Permet de forcer la couleur du modèle choisi
-  const [contentType, setContentType] = useState('url'); // 'url', 'wifi', 'email'
+  const [customColor, setCustomColor] = useState(null);
+  const [contentType, setContentType] = useState('url');
   
   const [urlInput, setUrlInput] = useState('https://smartlab.site');
   const [wifiSsid, setWifiSsid] = useState('');
@@ -25,15 +23,13 @@ export default function App() {
 
   const cardRef = useRef(null);
 
-  // Appliquer un modèle choisi dans la galerie (AVEC LA BONNE COULEUR)
   const handleSelectPreset = (preset) => {
     if (preset.frame) setSelectedFrame(preset.frame);
     if (preset.frameText) setFrameText(preset.frameText);
-    if (preset.color) setCustomColor(preset.color); // Applique la couleur exacte du modèle !
+    if (preset.color) setCustomColor(preset.color);
     setCurrentView('editor');
   };
 
-  // Construction de la donnée QR Code
   const getQrData = () => {
     if (contentType === 'wifi') {
       if (!wifiSsid) return 'WIFI:S:MonReseau;T:WPA;P:motdepasse;;';
@@ -72,15 +68,14 @@ export default function App() {
     }
   };
 
-  // Priorité à la couleur personnalisée si sélectionnée depuis la galerie
   const fgColor = customColor || selectedTemplate.dotsOptions?.color || '#000000';
   const bgColor = selectedTemplate.backgroundOptions?.color || '#ffffff';
 
-  const renderQRCode = () => (
+  const renderQRCode = (size = 180, overrideColor = null) => (
     <QRCodeSVG
       value={getQrData()}
-      size={180}
-      fgColor={fgColor}
+      size={size}
+      fgColor={overrideColor || fgColor}
       bgColor={bgColor}
       level="H"
       imageSettings={
@@ -108,16 +103,8 @@ export default function App() {
     );
   }
 
-  // 2. ÉCRAN D'ACCUEIL (LANDING PAGE)
+  // 2. ÉCRAN D'ACCUEIL
   if (currentView === 'home') {
-    const showcaseItems = [
-      { type: 'simple-badge', text: 'SCANNE-MOI', color: '#111827', value: 'https://smartlab.site' },
-      { type: 'banner-left', text: 'INSTAGRAM', color: '#1D4ED8', value: 'https://instagram.com' },
-      { type: 'speech-right', text: 'MENU 🍕', color: '#2563EB', value: 'https://exemple.com/menu' },
-      { type: 'bottom-card', text: 'WIFI GRATUIT', color: '#1D4ED8', value: 'WIFI:S:SmartLab;T:WPA;P:12345678;;' },
-      { type: 'corners', text: 'PROMO -20%', color: '#111827', value: 'https://exemple.com/promo' }
-    ];
-
     return (
       <div className="min-h-screen bg-[#FFFFFF] text-[#111827] flex flex-col justify-between p-4 md:p-8 w-full max-w-full overflow-x-hidden font-sans">
         <header className="max-w-5xl mx-auto w-full flex justify-between items-center py-3 border-b border-gray-100">
@@ -161,56 +148,6 @@ export default function App() {
               🎨 Voir les modèles
             </button>
           </div>
-
-          <div className="pt-8 w-full max-w-full overflow-hidden">
-            <p className="text-[11px] uppercase tracking-widest text-gray-600 font-bold mb-4">
-              Aperçu direct parmi nos modèles
-            </p>
-            <div className="relative w-full overflow-hidden py-3 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-10 before:bg-gradient-to-r before:from-[#FFFFFF] before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-10 after:bg-gradient-to-l after:from-[#FFFFFF] after:to-transparent">
-              <div className="flex gap-4 animate-marquee w-max">
-                {[...showcaseItems, ...showcaseItems].map((item, index) => (
-                  <div key={index} className="bg-gray-50 border border-gray-200 p-4 rounded-2xl flex flex-col items-center justify-center shrink-0 shadow-sm">
-                    <div className="bg-white p-3 rounded-xl border border-gray-200 flex flex-col items-center justify-center shadow-inner">
-                      {item.type === 'simple-badge' && (
-                        <div className="relative flex flex-col items-center">
-                          <div className="bg-[#111827] text-white font-extrabold text-[8px] uppercase px-2.5 py-0.5 rounded-t-md tracking-widest z-10 -mb-1">{item.text}</div>
-                          <div className="p-1.5 bg-white rounded-lg border-2 border-[#111827]"><QRCodeSVG value={item.value} size={70} fgColor={item.color} /></div>
-                        </div>
-                      )}
-                      {item.type === 'banner-left' && (
-                        <div className="flex items-center border-2 border-[#111827] rounded-xl overflow-hidden bg-[#111827] p-0.5">
-                          <div className="px-2 py-1 text-white font-black text-[10px] tracking-wider uppercase text-center max-w-[65px] leading-tight">{item.text}</div>
-                          <div className="bg-white p-1 rounded-lg"><QRCodeSVG value={item.value} size={65} fgColor={item.color} /></div>
-                        </div>
-                      )}
-                      {item.type === 'speech-right' && (
-                        <div className="flex items-center gap-1.5">
-                          <div className="border-2 border-[#111827] p-1 rounded-xl bg-white"><QRCodeSVG value={item.value} size={65} fgColor={item.color} /></div>
-                          <div className="relative bg-[#111827] text-white font-black text-[9px] px-2 py-1.5 rounded-lg uppercase text-center max-w-[60px]">{item.text}</div>
-                        </div>
-                      )}
-                      {item.type === 'bottom-card' && (
-                        <div className="border-2 border-[#111827] rounded-xl bg-[#111827] overflow-hidden flex flex-col items-center">
-                          <div className="bg-white p-1.5 w-full flex justify-center"><QRCodeSVG value={item.value} size={65} fgColor={item.color} /></div>
-                          <div className="py-0.5 px-2 text-white font-black text-[10px] tracking-widest uppercase text-center">{item.text}</div>
-                        </div>
-                      )}
-                      {item.type === 'corners' && (
-                        <div className="relative p-2.5 flex flex-col items-center">
-                          <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#111827] rounded-tl-sm" />
-                          <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#111827] rounded-tr-sm" />
-                          <div className="absolute bottom-5 left-0 w-3 h-3 border-b-2 border-l-2 border-[#111827] rounded-bl-sm" />
-                          <div className="absolute bottom-5 right-0 w-3 h-3 border-b-2 border-r-2 border-[#111827] rounded-br-sm" />
-                          <QRCodeSVG value={item.value} size={65} fgColor={item.color} />
-                          <p className="mt-1 font-black text-[8px] text-[#111827] uppercase tracking-widest">{item.text}</p>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
         </main>
 
         <footer className="text-center text-gray-600 text-[11px] sm:text-xs py-3 border-t border-gray-100">
@@ -220,7 +157,7 @@ export default function App() {
     );
   }
 
-  // 3. ÉCRAN ÉDITEUR / GÉNÉRATEUR
+  // 3. ÉCRAN ÉDITEUR
   return (
     <div className="min-h-screen bg-slate-100 p-4 md:p-8 text-slate-800 font-sans">
       <header className="max-w-4xl mx-auto mb-6 flex justify-between items-center">
@@ -242,7 +179,6 @@ export default function App() {
           <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl border border-slate-100 min-h-[350px]">
             <div ref={cardRef} className="bg-white p-6 rounded-xl flex items-center justify-center">
               
-              {/* Carte Rouge Solid */}
               {selectedFrame === 'card-red' && (
                 <div className="bg-gradient-to-b from-[#FF0055] to-[#E6004C] p-5 rounded-[32px] flex flex-col items-center justify-center shadow-xl max-w-[240px]">
                   <div className="bg-white p-4 rounded-[24px] shadow-md w-full flex justify-center">
@@ -254,7 +190,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* Pilule Haute Rose */}
               {selectedFrame === 'pill-top-pink' && (
                 <div className="bg-gradient-to-b from-[#E000FF] to-[#A000FF] p-5 rounded-[36px] flex flex-col items-center justify-center shadow-xl max-w-[240px]">
                   <div className="bg-white text-[#E000FF] font-black text-xs px-5 py-1.5 rounded-full shadow-sm mb-3 uppercase tracking-wider">
@@ -266,7 +201,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* Contour Dégradé Orange/Rouge */}
               {selectedFrame === 'rounded-gradient' && (
                 <div className="p-[3px] bg-gradient-to-br from-[#FF3B00] via-[#FF8800] to-[#FF0055] rounded-[36px] shadow-xl max-w-[240px]">
                   <div className="bg-white p-5 rounded-[33px] flex flex-col items-center justify-center">
@@ -280,7 +214,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* Étiquette Bleue */}
               {selectedFrame === 'tag-blue' && (
                 <div className="relative bg-white border-b-4 border-x-2 border-[#0052CC] rounded-b-[32px] rounded-t-xl p-5 pt-3 shadow-xl flex flex-col items-center max-w-[240px] overflow-hidden">
                   <div className="w-full bg-gradient-to-r from-[#0052CC] via-[#0266FF] to-[#0052CC] h-2.5 absolute top-0 left-0 right-0" />
@@ -293,7 +226,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* Modèles existants */}
               {selectedFrame === 'banner-left' && (
                 <div className="flex items-center border-4 border-slate-900 rounded-2xl overflow-hidden bg-slate-900 p-1">
                   <div className="px-5 py-4 text-white font-black text-lg tracking-wider uppercase text-center max-w-[130px] leading-tight">
@@ -355,7 +287,7 @@ export default function App() {
             </button>
           </div>
 
-          {/* Configuration */}
+          {/* Formulaire */}
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-semibold text-slate-700 mb-2">📌 Que voulez-vous partager ?</label>
@@ -377,4 +309,105 @@ export default function App() {
                   className={`p-2 text-xs font-medium rounded-lg border transition ${contentType === 'email' ? 'bg-[#1D4ED8] text-white border-[#1D4ED8]' : 'bg-slate-50 text-slate-700 border-slate-200'}`}
                 >
                   ✉️ E-mail
-                        </
+                </button>
+              </div>
+            </div>
+
+            {contentType === 'url' && (
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-1">Lien web ou réseau social</label>
+                <input
+                  type="text"
+                  value={urlInput}
+                  onChange={(e) => setUrlInput(e.target.value)}
+                  placeholder="https://instagram.com/moncompte"
+                  className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                />
+              </div>
+            )}
+
+            {contentType === 'wifi' && (
+              <div className="space-y-3">
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">Nom du réseau Wi-Fi (SSID)</label>
+                  <input
+                    type="text"
+                    value={wifiSsid}
+                    onChange={(e) => setWifiSsid(e.target.value)}
+                    placeholder="Ex: MonWifiMaison"
+                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-slate-700 mb-1">Mot de passe</label>
+                  <input
+                    type="password"
+                    value={wifiPassword}
+                    onChange={(e) => setWifiPassword(e.target.value)}
+                    placeholder="Mot de passe"
+                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                  />
+                </div>
+              </div>
+            )}
+
+            {contentType === 'email' && (
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-1">Adresse E-mail</label>
+                <input
+                  type="email"
+                  value={emailInput}
+                  onChange={(e) => setEmailInput(e.target.value)}
+                  placeholder="contact@exemple.com"
+                  className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
+                />
+              </div>
+            )}
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">🖼️ Importer un logo central</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleCustomLogoUpload}
+                className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer"
+              />
+              {customLogo && (
+                <button onClick={() => setCustomLogo(null)} className="mt-1 text-xs text-red-500 hover:underline">
+                  Supprimer le logo
+                </button>
+              )}
+            </div>
+
+            <FrameSelector
+              selectedFrame={selectedFrame}
+              onSelectFrame={setSelectedFrame}
+              frameText={frameText}
+              setFrameText={setFrameText}
+            />
+          </div>
+        </div>
+
+        {/* Thèmes de couleur */}
+        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+          <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Couleurs & Thèmes</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {TEMPLATES.map((tmpl) => (
+              <button
+                key={tmpl.id}
+                onClick={() => {
+                  setSelectedTemplate(tmpl);
+                  setCustomColor(null);
+                }}
+                className={`p-3 text-sm font-medium rounded-xl border text-left transition flex items-center justify-between ${selectedTemplate.id === tmpl.id && !customColor ? 'bg-blue-50 border-blue-600 text-blue-900 ring-2 ring-blue-500/20' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700'}`}
+              >
+                <span>{tmpl.title}</span>
+                {selectedTemplate.id === tmpl.id && !customColor && <span className="text-blue-600 text-xs font-bold">✓</span>}
+              </button>
+            ))}
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
