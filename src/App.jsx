@@ -71,6 +71,7 @@ export default function App() {
   const fgColor = customColor || selectedTemplate.dotsOptions?.color || '#000000';
   const bgColor = selectedTemplate.backgroundOptions?.color || '#ffffff';
 
+  // Rendu QR réutilisable et sécurisé
   const renderQRCode = (size = 180, overrideColor = null) => (
     <QRCodeSVG
       value={getQrData()}
@@ -84,8 +85,8 @@ export default function App() {
               src: customLogo,
               x: undefined,
               y: undefined,
-              height: 36,
-              width: 36,
+              height: Math.round(size * 0.2),
+              width: Math.round(size * 0.2),
               excavate: true,
             }
           : undefined
@@ -103,8 +104,16 @@ export default function App() {
     );
   }
 
-  // 2. ÉCRAN D'ACCUEIL
+  // 2. ÉCRAN D'ACCUEIL (AVEC APERÇU DÉFILANT RESTAURÉ)
   if (currentView === 'home') {
+    const showcaseItems = [
+      { type: 'simple-badge', text: 'SCANNE-MOI', color: '#111827', value: 'https://smartlab.site' },
+      { type: 'banner-left', text: 'INSTAGRAM', color: '#1D4ED8', value: 'https://instagram.com' },
+      { type: 'speech-right', text: 'MENU 🍕', color: '#2563EB', value: 'https://exemple.com/menu' },
+      { type: 'bottom-card', text: 'WIFI GRATUIT', color: '#1D4ED8', value: 'WIFI:S:SmartLab;T:WPA;P:12345678;;' },
+      { type: 'corners', text: 'PROMO -20%', color: '#111827', value: 'https://exemple.com/promo' }
+    ];
+
     return (
       <div className="min-h-screen bg-[#FFFFFF] text-[#111827] flex flex-col justify-between p-4 md:p-8 w-full max-w-full overflow-x-hidden font-sans">
         <header className="max-w-5xl mx-auto w-full flex justify-between items-center py-3 border-b border-gray-100">
@@ -122,7 +131,7 @@ export default function App() {
               ⚡ Aperçu en temps réel
             </span>
             <span className="inline-flex items-center px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-[#1D4ED8] text-xs font-semibold">
-              🎨 +30 styles personnalisables
+              🎨 Modèles personnalisables
             </span>
           </div>
 
@@ -147,6 +156,65 @@ export default function App() {
             >
               🎨 Voir les modèles
             </button>
+          </div>
+
+          {/* Section Carrousel Aperçu Restaurée */}
+          <div className="pt-6 w-full max-w-full overflow-hidden">
+            <p className="text-[11px] uppercase tracking-widest text-gray-500 font-bold mb-4">
+              Aperçu des modèles populaires
+            </p>
+            <div className="relative w-full overflow-hidden py-2 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-8 before:bg-gradient-to-r before:from-white before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-8 after:bg-gradient-to-l after:from-white after:to-transparent">
+              <div className="flex gap-4 animate-marquee w-max">
+                {[...showcaseItems, ...showcaseItems].map((item, index) => (
+                  <div key={index} className="bg-gray-50 border border-gray-200 p-3 rounded-2xl flex flex-col items-center justify-center shrink-0 shadow-sm">
+                    <div className="bg-white p-2.5 rounded-xl border border-gray-200 flex flex-col items-center justify-center shadow-inner">
+                      {item.type === 'simple-badge' && (
+                        <div className="relative flex flex-col items-center">
+                          <div className="bg-[#111827] text-white font-extrabold text-[8px] uppercase px-2 py-0.5 rounded-t-md tracking-widest z-10 -mb-1">{item.text}</div>
+                          <div className="p-1 bg-white rounded-lg border-2 border-[#111827]">
+                            <QRCodeSVG value={item.value} size={60} fgColor={item.color} bgColor="#ffffff" level="L" />
+                          </div>
+                        </div>
+                      )}
+                      {item.type === 'banner-left' && (
+                        <div className="flex items-center border-2 border-[#111827] rounded-xl overflow-hidden bg-[#111827] p-0.5">
+                          <div className="px-2 py-1 text-white font-black text-[9px] tracking-wider uppercase text-center max-w-[60px] leading-tight">{item.text}</div>
+                          <div className="bg-white p-1 rounded-lg">
+                            <QRCodeSVG value={item.value} size={55} fgColor={item.color} bgColor="#ffffff" level="L" />
+                          </div>
+                        </div>
+                      )}
+                      {item.type === 'speech-right' && (
+                        <div className="flex items-center gap-1">
+                          <div className="border-2 border-[#111827] p-1 rounded-xl bg-white">
+                            <QRCodeSVG value={item.value} size={55} fgColor={item.color} bgColor="#ffffff" level="L" />
+                          </div>
+                          <div className="relative bg-[#111827] text-white font-black text-[8px] px-1.5 py-1 rounded-lg uppercase text-center max-w-[55px]">{item.text}</div>
+                        </div>
+                      )}
+                      {item.type === 'bottom-card' && (
+                        <div className="border-2 border-[#111827] rounded-xl bg-[#111827] overflow-hidden flex flex-col items-center">
+                          <div className="bg-white p-1 w-full flex justify-center">
+                            <QRCodeSVG value={item.value} size={55} fgColor={item.color} bgColor="#ffffff" level="L" />
+                          </div>
+                          <div className="py-0.5 px-1.5 text-white font-black text-[8px] tracking-widest uppercase text-center">{item.text}</div>
+                        </div>
+                      )}
+                      {item.type === 'corners' && (
+                        <div className="relative p-2 flex flex-col items-center">
+                          <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t-2 border-l-2 border-[#111827] rounded-tl-sm" />
+                          <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t-2 border-r-2 border-[#111827] rounded-tr-sm" />
+                          <div className="absolute bottom-4 left-0 w-2.5 h-2.5 border-b-2 border-l-2 border-[#111827] rounded-bl-sm" />
+                          <div className="absolute bottom-4 right-0 w-2.5 h-2.5 border-b-2 border-r-2 border-[#111827] rounded-br-sm" />
+                          <QRCodeSVG value={item.value} size={55} fgColor={item.color} bgColor="#ffffff" level="L" />
+                          <p className="mt-1 font-black text-[7px] text-[#111827] uppercase tracking-widest">{item.text}</p>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </main>
 
