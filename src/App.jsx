@@ -3,7 +3,7 @@ import { QRCodeSVG } from 'qrcode.react';
 import * as htmlToImage from 'html-to-image';
 import { TEMPLATES } from './data/templates';
 import FrameSelector from './components/FrameSelector';
-import TemplatesGallery, { PRESET_TEMPLATES } from './components/TemplatesGallery';
+import TemplatesGallery from './components/TemplatesGallery';
 
 export default function App() {
   // Navigation: 'home' | 'gallery' | 'editor'
@@ -11,6 +11,7 @@ export default function App() {
 
   // États du générateur
   const [selectedTemplate, setSelectedTemplate] = useState(TEMPLATES[0]);
+  const [customColor, setCustomColor] = useState(null); // Permet de forcer la couleur du modèle choisi
   const [contentType, setContentType] = useState('url'); // 'url', 'wifi', 'email'
   
   const [urlInput, setUrlInput] = useState('https://smartlab.site');
@@ -24,10 +25,11 @@ export default function App() {
 
   const cardRef = useRef(null);
 
-  // Appliquer un modèle choisi dans la galerie
+  // Appliquer un modèle choisi dans la galerie (AVEC LA BONNE COULEUR)
   const handleSelectPreset = (preset) => {
     if (preset.frame) setSelectedFrame(preset.frame);
     if (preset.frameText) setFrameText(preset.frameText);
+    if (preset.color) setCustomColor(preset.color); // Applique la couleur exacte du modèle !
     setCurrentView('editor');
   };
 
@@ -70,7 +72,8 @@ export default function App() {
     }
   };
 
-  const fgColor = selectedTemplate.dotsOptions?.color || '#000000';
+  // Priorité à la couleur personnalisée si sélectionnée depuis la galerie
+  const fgColor = customColor || selectedTemplate.dotsOptions?.color || '#000000';
   const bgColor = selectedTemplate.backgroundOptions?.color || '#ffffff';
 
   const renderQRCode = () => (
@@ -239,7 +242,7 @@ export default function App() {
           <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl border border-slate-100 min-h-[350px]">
             <div ref={cardRef} className="bg-white p-6 rounded-xl flex items-center justify-center">
               
-              {/* NOUVEAU : Carte Rouge Solid */}
+              {/* Carte Rouge Solid */}
               {selectedFrame === 'card-red' && (
                 <div className="bg-gradient-to-b from-[#FF0055] to-[#E6004C] p-5 rounded-[32px] flex flex-col items-center justify-center shadow-xl max-w-[240px]">
                   <div className="bg-white p-4 rounded-[24px] shadow-md w-full flex justify-center">
@@ -251,7 +254,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* NOUVEAU : Pilule Haute Rose */}
+              {/* Pilule Haute Rose */}
               {selectedFrame === 'pill-top-pink' && (
                 <div className="bg-gradient-to-b from-[#E000FF] to-[#A000FF] p-5 rounded-[36px] flex flex-col items-center justify-center shadow-xl max-w-[240px]">
                   <div className="bg-white text-[#E000FF] font-black text-xs px-5 py-1.5 rounded-full shadow-sm mb-3 uppercase tracking-wider">
@@ -263,7 +266,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* NOUVEAU : Contour Dégradé Orange/Rouge */}
+              {/* Contour Dégradé Orange/Rouge */}
               {selectedFrame === 'rounded-gradient' && (
                 <div className="p-[3px] bg-gradient-to-br from-[#FF3B00] via-[#FF8800] to-[#FF0055] rounded-[36px] shadow-xl max-w-[240px]">
                   <div className="bg-white p-5 rounded-[33px] flex flex-col items-center justify-center">
@@ -277,7 +280,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* NOUVEAU : Étiquette Bleue */}
+              {/* Étiquette Bleue */}
               {selectedFrame === 'tag-blue' && (
                 <div className="relative bg-white border-b-4 border-x-2 border-[#0052CC] rounded-b-[32px] rounded-t-xl p-5 pt-3 shadow-xl flex flex-col items-center max-w-[240px] overflow-hidden">
                   <div className="w-full bg-gradient-to-r from-[#0052CC] via-[#0266FF] to-[#0052CC] h-2.5 absolute top-0 left-0 right-0" />
@@ -374,102 +377,4 @@ export default function App() {
                   className={`p-2 text-xs font-medium rounded-lg border transition ${contentType === 'email' ? 'bg-[#1D4ED8] text-white border-[#1D4ED8]' : 'bg-slate-50 text-slate-700 border-slate-200'}`}
                 >
                   ✉️ E-mail
-                </button>
-              </div>
-            </div>
-
-            {contentType === 'url' && (
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1">Lien web ou réseau social</label>
-                <input
-                  type="text"
-                  value={urlInput}
-                  onChange={(e) => setUrlInput(e.target.value)}
-                  placeholder="https://instagram.com/moncompte"
-                  className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
-                />
-              </div>
-            )}
-
-            {contentType === 'wifi' && (
-              <div className="space-y-3">
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1">Nom du réseau Wi-Fi (SSID)</label>
-                  <input
-                    type="text"
-                    value={wifiSsid}
-                    onChange={(e) => setWifiSsid(e.target.value)}
-                    placeholder="Ex: MonWifiMaison"
-                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-semibold text-slate-700 mb-1">Mot de passe</label>
-                  <input
-                    type="password"
-                    value={wifiPassword}
-                    onChange={(e) => setWifiPassword(e.target.value)}
-                    placeholder="Mot de passe"
-                    className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
-                  />
-                </div>
-              </div>
-            )}
-
-            {contentType === 'email' && (
-              <div>
-                <label className="block text-sm font-semibold text-slate-700 mb-1">Adresse E-mail</label>
-                <input
-                  type="email"
-                  value={emailInput}
-                  onChange={(e) => setEmailInput(e.target.value)}
-                  placeholder="contact@exemple.com"
-                  className="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm"
-                />
-              </div>
-            )}
-
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-1">🖼️ Importer un logo central</label>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={handleCustomLogoUpload}
-                className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 cursor-pointer"
-              />
-              {customLogo && (
-                <button onClick={() => setCustomLogo(null)} className="mt-1 text-xs text-red-500 hover:underline">
-                  Supprimer le logo
-                </button>
-              )}
-            </div>
-
-            <FrameSelector
-              selectedFrame={selectedFrame}
-              onSelectFrame={setSelectedFrame}
-              frameText={frameText}
-              setFrameText={setFrameText}
-            />
-          </div>
-        </div>
-
-        {/* Couleurs */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
-          <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Couleurs & Thèmes</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {TEMPLATES.map((tmpl) => (
-              <button
-                key={tmpl.id}
-                onClick={() => setSelectedTemplate(tmpl)}
-                className={`p-3 text-sm font-medium rounded-xl border text-left transition flex items-center justify-between ${selectedTemplate.id === tmpl.id ? 'bg-blue-50 border-blue-600 text-blue-900 ring-2 ring-blue-500/20' : 'bg-slate-50 border-slate-200 hover:bg-slate-100 text-slate-700'}`}
-              >
-                <span>{tmpl.title}</span>
-                {selectedTemplate.id === tmpl.id && <span className="text-blue-600 text-xs font-bold">✓</span>}
-              </button>
-            ))}
-          </div>
-        </div>
-      </main>
-    </div>
-  );
-}
+                        </
