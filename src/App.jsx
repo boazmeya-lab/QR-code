@@ -200,10 +200,10 @@ export default function App() {
                       )}
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
+                
+          
+          
+
         </main>
 
         <footer className="text-center text-gray-600 text-[11px] sm:text-xs py-3 border-t border-gray-100">
