@@ -1,3 +1,4 @@
+import { TEMPLATES } from '../data/templates';
 import React from 'react';
 import { QRCodeSVG } from 'qrcode.react';
 import { QRFrame } from './QRFrame';
