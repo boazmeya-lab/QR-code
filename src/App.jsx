@@ -197,18 +197,14 @@ export default function App() {
                           <QRCodeSVG value={item.value} size={55} fgColor={item.color} bgColor="#ffffff" level="L" />
                           <p className="mt-1 font-black text-[7px] text-[#111827] uppercase tracking-widest">{item.text}</p>
                         </div>
-                      )}
-                    </div>
-                  </div>
-                
-          
-          
+      </div>
+    ))}
+  </div>
+</main>
 
-        </main>
-
-        <footer className="text-center text-gray-600 text-[11px] sm:text-xs py-3 border-t border-gray-100">
-          © 2026 SmartLab — Tous droits réservés.
-        </footer>
+<footer className="text-center text-gray-600 text-[11px] sm:text-xs py-3">
+  © 2026 SmartLab - Tous droits réservés.
+</footer>
       </div>
     );
   }
