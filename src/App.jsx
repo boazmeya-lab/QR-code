@@ -111,7 +111,7 @@ export default function App() {
     );
   }
 
-  // 2. ÉCRAN D'ACCUEIL (AVEC APERÇU DÉFILANT RESTAURÉ)
+  // 2. ÉCRAN D'ACCUEIL
   if (currentView === 'home') {
     const showcaseItems = [
       { type: 'simple-badge', text: 'SCANNE-MOI', color: '#111827', value: 'https://smartlab.site' },
@@ -135,10 +135,10 @@ export default function App() {
         <main className="max-w-3xl mx-auto text-center space-y-6 my-auto py-8 w-full px-2">
           <div className="flex flex-wrap justify-center gap-2">
             <span className="inline-flex items-center px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-[#2563EB] text-xs font-semibold">
-                 Aperçu en temps réel
+              Aperçu en temps réel
             </span>
             <span className="inline-flex items-center px-3 py-1 bg-blue-50 border border-blue-200 rounded-full text-[#1D4ED8] text-xs font-semibold">
-                 Modèles personnalisables
+              Modèles personnalisables
             </span>
           </div>
 
@@ -155,17 +155,17 @@ export default function App() {
               onClick={() => setCurrentView('editor')}
               className="w-full sm:w-auto px-7 py-3.5 bg-[#1D4ED8] hover:bg-[#1e40af] text-white font-bold text-base rounded-2xl shadow-lg shadow-blue-700/20 transition duration-200 active:scale-95 cursor-pointer"
             >
-                Personnaliser soi-même
+              Personnaliser soi-même
             </button>
             <button
               onClick={() => setCurrentView('gallery')}
               className="w-full sm:w-auto px-7 py-3.5 bg-gray-100 hover:bg-gray-200 text-[#111827] border border-gray-300 font-bold text-base rounded-2xl transition duration-200 active:scale-95 cursor-pointer"
             >
-                Voir les modèles
+              Voir les modèles
             </button>
           </div>
 
-          {/* Section Carrousel Aperçu Restaurée */}
+          {/* Section Carrousel Aperçu */}
           <div className="pt-6 w-full max-w-full overflow-hidden">
             <p className="text-[11px] uppercase tracking-widest text-gray-500 font-bold mb-4">
               Aperçu des modèles populaires
@@ -173,38 +173,33 @@ export default function App() {
             <div className="relative w-full overflow-hidden py-2 before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-8 before:bg-gradient-to-r before:from-white before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-8 after:bg-gradient-to-l after:from-white after:to-transparent">
               <div className="flex gap-4 animate-marquee w-max">
                 {showcaseItems.map((item, index) => (
-  <div key={index} className="bg-[#FAFAFA] p-3 rounded-2xl border border-gray-200 flex flex-col items-center justify-center shrink-0">
-    <QRFrame
-      frameType={item.type}
-      color={item.color}
-      text={item.text}
-    >
-      <QRCodeSVG
-        value={item.value}
-        size={60}
-        fgColor="#000000"
-        bgColor="#ffffff"
-        level="M"
-      />
-    </QRFrame>
-  </div>
-))}
-                        <div className="relative p-2 flex flex-col items-center">
-                          <div className="absolute top-0 left-0 w-2.5 h-2.5 border-t-2 border-l-2 border-[#111827] rounded-tl-sm" />
-                          <div className="absolute top-0 right-0 w-2.5 h-2.5 border-t-2 border-r-2 border-[#111827] rounded-tr-sm" />
-                          <div className="absolute bottom-4 left-0 w-2.5 h-2.5 border-b-2 border-l-2 border-[#111827] rounded-bl-sm" />
-                          <div className="absolute bottom-4 right-0 w-2.5 h-2.5 border-b-2 border-r-2 border-[#111827] rounded-br-sm" />
-                          <QRCodeSVG value={item.value} size={55} fgColor={item.color} bgColor="#ffffff" level="L" />
-                          <p className="mt-1 font-black text-[7px] text-[#111827] uppercase tracking-widest">{item.text}</p>
-                       </div>
-    ))}
-  </div>
-</main>
+                  <div key={index} className="bg-[#FAFAFA] p-3 rounded-2xl border border-gray-200 flex flex-col items-center justify-center shrink-0">
+                    <QRFrame
+                      frameType={item.type}
+                      color={item.color}
+                      text={item.text}
+                    >
+                      <QRCodeSVG
+                        value={item.value}
+                        size={60}
+                        fgColor="#000000"
+                        bgColor="#ffffff"
+                        level="M"
+                      />
+                    </QRFrame>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </main>
 
-<footer className="text-center text-gray-600 text-[11px] sm:text-xs py-3">
-  © 2026 SmartLab - Tous droits réservés.
-</footer>
-</div> 
+        <footer className="text-center text-gray-600 text-[11px] sm:text-xs py-3">
+          © 2026 SmartLab - Tous droits réservés.
+        </footer>
+      </div>
+    );
+  }
 
   // 3. ÉCRAN ÉDITEUR
   return (
@@ -227,105 +222,7 @@ export default function App() {
           {/* Zone Aperçu */}
           <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl border border-slate-100 min-h-[350px]">
             <div ref={cardRef} className="bg-white p-6 rounded-xl flex items-center justify-center">
-              
-              {selectedFrame === 'card-red' && (
-                <div className="bg-gradient-to-b from-[#FF0055] to-[#E6004C] p-5 rounded-[32px] flex flex-col items-center justify-center shadow-xl max-w-[240px]">
-                  <div className="bg-white p-4 rounded-[24px] shadow-md w-full flex justify-center">
-                    {renderQRCode()}
-                  </div>
-                  <span className="text-white font-black text-lg tracking-wider uppercase mt-3 mb-1 text-center">
-                    {frameText}
-                  </span>
-                </div>
-              )}
-
-              {selectedFrame === 'pill-top-pink' && (
-                <div className="bg-gradient-to-b from-[#E000FF] to-[#A000FF] p-5 rounded-[36px] flex flex-col items-center justify-center shadow-xl max-w-[240px]">
-                  <div className="bg-white text-[#E000FF] font-black text-xs px-5 py-1.5 rounded-full shadow-sm mb-3 uppercase tracking-wider">
-                    {frameText}
-                  </div>
-                  <div className="bg-white p-4 rounded-[28px] shadow-md w-full flex justify-center">
-                    {renderQRCode()}
-                  </div>
-                </div>
-              )}
-
-              {selectedFrame === 'rounded-gradient' && (
-                <div className="p-[3px] bg-gradient-to-br from-[#FF3B00] via-[#FF8800] to-[#FF0055] rounded-[36px] shadow-xl max-w-[240px]">
-                  <div className="bg-white p-5 rounded-[33px] flex flex-col items-center justify-center">
-                    <div className="p-2 w-full flex justify-center">
-                      {renderQRCode()}
-                    </div>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF3B00] to-[#FF8800] font-black text-lg tracking-wider uppercase mt-3 text-center">
-                      {frameText}
-                    </span>
-                  </div>
-                </div>
-              )}
-
-              {selectedFrame === 'tag-blue' && (
-                <div className="relative bg-white border-b-4 border-x-2 border-[#0052CC] rounded-b-[32px] rounded-t-xl p-5 pt-3 shadow-xl flex flex-col items-center max-w-[240px] overflow-hidden">
-                  <div className="w-full bg-gradient-to-r from-[#0052CC] via-[#0266FF] to-[#0052CC] h-2.5 absolute top-0 left-0 right-0" />
-                  <span className="text-slate-900 font-extrabold text-sm tracking-wider uppercase mt-2 mb-3 text-center">
-                    {frameText}
-                  </span>
-                  <div className="bg-slate-50 p-3 rounded-2xl border border-slate-200 w-full flex justify-center shadow-inner">
-                    {renderQRCode()}
-                  </div>
-                </div>
-              )}
-
-              {selectedFrame === 'banner-left' && (
-                <div className="flex items-center border-4 border-slate-900 rounded-2xl overflow-hidden bg-slate-900 p-1">
-                  <div className="px-5 py-4 text-white font-black text-lg tracking-wider uppercase text-center max-w-[130px] leading-tight">
-                    {frameText}
-                  </div>
-                  <div className="bg-white p-3 rounded-xl">{renderQRCode()}</div>
-                </div>
-              )}
-
-              {selectedFrame === 'speech-right' && (
-                <div className="flex items-center gap-3">
-                  <div className="border-4 border-slate-900 p-3 rounded-2xl bg-white shadow-sm">{renderQRCode()}</div>
-                  <div className="relative bg-slate-900 text-white font-black text-sm px-4 py-3 rounded-xl tracking-wide uppercase leading-tight max-w-[120px] text-center">
-                    <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-0 h-0 border-y-8 border-y-transparent border-r-8 border-r-slate-900" />
-                    {frameText}
-                  </div>
-                </div>
-              )}
-
-              {selectedFrame === 'bottom-card' && (
-                <div className="border-4 border-slate-900 rounded-2xl bg-slate-900 overflow-hidden flex flex-col items-center">
-                  <div className="bg-white p-4 w-full flex justify-center">{renderQRCode()}</div>
-                  <div className="py-3 px-6 text-white font-black text-lg tracking-widest uppercase text-center">
-                    {frameText}
-                  </div>
-                </div>
-              )}
-
-              {selectedFrame === 'simple-badge' && (
-                <div className="relative flex flex-col items-center">
-                  <div className="bg-slate-900 text-white font-extrabold text-xs uppercase px-5 py-1.5 rounded-t-xl tracking-widest shadow-sm z-10 -mb-2">
-                    {frameText}
-                  </div>
-                  <div className="p-4 bg-white rounded-2xl border-4 border-slate-900 shadow-md">
-                    {renderQRCode()}
-                  </div>
-                </div>
-              )}
-
-              {selectedFrame === 'corners' && (
-                <div className="relative p-6 flex flex-col items-center">
-                  <div className="absolute top-0 left-0 w-8 h-8 border-t-4 border-l-4 border-slate-900 rounded-tl-xl" />
-                  <div className="absolute top-0 right-0 w-8 h-8 border-t-4 border-r-4 border-slate-900 rounded-tr-xl" />
-                  <div className="absolute bottom-8 left-0 w-8 h-8 border-b-4 border-l-4 border-slate-900 rounded-bl-xl" />
-                  <div className="absolute bottom-8 right-0 w-8 h-8 border-b-4 border-r-4 border-slate-900 rounded-br-xl" />
-                  {renderQRCode()}
-                  <p className="mt-4 font-black text-xs text-slate-900 uppercase tracking-widest">{frameText}</p>
-                </div>
-              )}
-
-              {selectedFrame === 'none' && renderQRCode()}
+              {renderQRCode()}
             </div>
 
             <button
@@ -438,7 +335,7 @@ export default function App() {
         </div>
 
         {/* Thèmes de couleur */}
-        <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+        <div className="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-slate-200">
           <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Couleurs & Thèmes</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {TEMPLATES.map((tmpl) => (
@@ -453,10 +350,10 @@ export default function App() {
                 <span>{tmpl.title}</span>
                 {selectedTemplate.id === tmpl.id && !customColor && <span className="text-blue-600 text-xs font-bold">✓</span>}
               </button>
-            </button>
-      )}
+            ))}
+          </div>
+        </div>
+      </main>
     </div>
-  </div>
-</div>
-);
-      }
+  );
+}
