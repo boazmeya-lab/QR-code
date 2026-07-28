@@ -4,6 +4,7 @@ import * as htmlToImage from 'html-to-image';
 import { TEMPLATES } from './data/templates';
 import FrameSelector from './components/FrameSelector';
 import TemplatesGallery from './components/TemplatesGallery';
+import { QRFrame } from './components/QRFrame';
 
 export default function App() {
   const [currentView, setCurrentView] = useState('home');
