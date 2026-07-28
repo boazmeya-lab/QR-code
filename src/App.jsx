@@ -78,7 +78,7 @@ export default function App() {
     frameType={selectedFrame} 
     color={overrideColor || customColor || fgColor} 
     text={frameText}
-  >
+  
     const renderQrCode = () => {
     return (
       <QRFrame 
