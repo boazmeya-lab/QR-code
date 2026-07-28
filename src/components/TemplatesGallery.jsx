@@ -1,7 +1,7 @@
-import { TEMPLATES } from '../data/templates';
 import React from 'react';
 import { QRCodeSVG } from 'qrcode.react';
-import { QRFrame } from './QRFrame';
+import { QRFrame } from './QRFrames';
+import { TEMPLATES } from '../data/templates';
 
 export default function TemplatesGallery({ onSelectPreset, onBack }) {
   return (
