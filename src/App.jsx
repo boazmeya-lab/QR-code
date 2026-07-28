@@ -74,7 +74,6 @@ export default function App() {
 
   // Rendu QR réutilisable et sécurisé
   const renderQRCode = (size = 180, overrideColor = null) => (
-    const renderQRCode = (size = 180, overrideColor = null) => (
   <QRFrame 
     frameType={selectedFrame} 
     color={overrideColor || customColor || fgColor} 
