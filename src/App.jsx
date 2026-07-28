@@ -453,10 +453,10 @@ export default function App() {
                 <span>{tmpl.title}</span>
                 {selectedTemplate.id === tmpl.id && !customColor && <span className="text-blue-600 text-xs font-bold">✓</span>}
               </button>
-            ))}
-          </div>
-        </div>
-      </main>
+            </button>
+      )}
     </div>
-  );
-}
+  </div>
+</div>
+);
+      }
