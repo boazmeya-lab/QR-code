@@ -73,12 +73,7 @@ export default function App() {
   const bgColor = selectedTemplate.backgroundOptions?.color || '#ffffff';
 
   // Rendu QR réutilisable et sécurisé
-  const renderQRCode = (size = 180, overrideColor = null) => (
-  <QRFrame 
-    frameType={selectedFrame} 
-    color={overrideColor || customColor || fgColor} 
-    text={frameText}
-  
+
     const renderQrCode = () => {
     return (
       <QRFrame 
