@@ -196,8 +196,7 @@ export default function App() {
                           <div className="absolute bottom-4 right-0 w-2.5 h-2.5 border-b-2 border-r-2 border-[#111827] rounded-br-sm" />
                           <QRCodeSVG value={item.value} size={55} fgColor={item.color} bgColor="#ffffff" level="L" />
                           <p className="mt-1 font-black text-[7px] text-[#111827] uppercase tracking-widest">{item.text}</p>
-                        </div>
-      </div>
+                       </div>
     ))}
   </div>
 </main>
@@ -205,9 +204,7 @@ export default function App() {
 <footer className="text-center text-gray-600 text-[11px] sm:text-xs py-3">
   © 2026 SmartLab - Tous droits réservés.
 </footer>
-      </div>
-    );
-  }
+</div> 
 
   // 3. ÉCRAN ÉDITEUR
   return (
