@@ -74,13 +74,26 @@ export default function App() {
 
   // Rendu QR réutilisable et sécurisé
   const renderQRCode = (size = 180, overrideColor = null) => (
-    <QRCodeSVG
-      value={getQrData()}
-      size={size}
-      fgColor={overrideColor || fgColor}
-      bgColor={bgColor}
-      level="H"
-      imageSettings={
+    const renderQRCode = (size = 180, overrideColor = null) => (
+  <QRFrame 
+    frameType={selectedFrame} 
+    color={overrideColor || customColor || fgColor} 
+    text={frameText}
+  >
+    const renderQrCode = () => {
+    return (
+      <QRFrame 
+        frameType={selectedFrame} 
+        color={overrideColor || fgColor} 
+        text={frameText}
+      >
+        <QRCodeSVG
+          value={getQrData()}
+          size={size}
+          fgColor={overrideColor || fgColor}
+          bgColor={bgColor}
+          level="H"
+          imageSettings={
         customLogo
           ? {
               src: customLogo,
@@ -93,8 +106,25 @@ export default function App() {
           : undefined
       }
     />
-  );
-
+  </QRFrame>
+);
+  };
+       
+imageSettings={
+        customLogo
+          ? {
+              src: customLogo,
+              x: undefined,
+              y: undefined,
+              height: Math.round(size * 0.2),
+              width: Math.round(size * 0.2),
+              excavate: true,
+            }
+          : undefined
+      }
+    />
+  </QRFrame>
+);
   // 1. ÉCRAN GALERIE
   if (currentView === 'gallery') {
     return (
