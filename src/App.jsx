@@ -221,10 +221,12 @@ export default function App() {
           
           {/* Zone Aperçu */}
           <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl border border-slate-100 min-h-[350px]">
-            <div ref={cardRef} className="flex items-center justify-center">
+            
               {renderQRCode()}
             </div>
-
+             <div ref={cardRef} className="bg-white p-6 rounded-xl flex items-center justify-center">
+  {renderQRCode()}
+</div>
             <button
               onClick={handleDownload}
               className="mt-6 w-full py-3 px-4 bg-[#1D4ED8] hover:bg-[#1e40af] text-white font-semibold rounded-xl transition shadow-sm cursor-pointer text-center"
