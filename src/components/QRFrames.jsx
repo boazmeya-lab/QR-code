@@ -79,7 +79,7 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
 
     case 'bottom-card':
       return (
-        <div className="rounded-2xl overflow-hidden flex flex-col items-center shadow-md max-w-[220px] mx-auto" style={{ backgroundColor: color }}>
+        <div className="rounded-2xl overflow-hidden flex flex-col items-center max-w-[220px] mx-auto" style={{ backgroundColor: color }}>
           <div className="bg-white p-3 w-full flex justify-center">{children}</div>
           <div className="py-2 px-4 text-white font-black text-xs tracking-widest uppercase text-center">
             {text}
