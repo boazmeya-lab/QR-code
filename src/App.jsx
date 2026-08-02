@@ -333,14 +333,15 @@ export default function App() {
               frameText={frameText}
               setFrameText={setFrameText}
             />
-          </div>
-        </div>
+          
+        
 
         {/* Thèmes de couleur */}
         <div className="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-slate-200">
           <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Couleurs & Thèmes</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {TEMPLATES.map((tmpl) => (
+      
               <button
                 key={tmpl.id}
                 onClick={() => {
