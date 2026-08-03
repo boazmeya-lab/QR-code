@@ -4,7 +4,7 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
   switch (frameType) {
     case 'card-red':
       return (
-        <div className="bg-[#FF0055] p-5 rounded-[28px] flex flex-col items-center justify-center shadow-md max-w-[220px] mx-auto">
+        <div className="bg-[#FF0055] p-5 rounded-[28px] flex flex-col items-center justify-center max-w-[220px] mx-auto">
           <div className="bg-white p-3 rounded-[20px] w-full flex justify-center">
             {children}
           </div>
@@ -16,11 +16,11 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
 
     case 'pill-top-pink':
       return (
-        <div className="bg-[#E000FF] p-5 rounded-[32px] flex flex-col items-center justify-center shadow-md max-w-[220px] mx-auto">
+        <div className="bg-[#E000FF] p-5 rounded-[32px] flex flex-col items-center justify-center max-w-[220px] mx-auto">
           <div className="bg-white p-3 rounded-[24px] w-full flex justify-center">
             {children}
           </div>
-          <div className="bg-white text-[#E000FF] font-black text-xs px-4 py-1.5 rounded-full shadow-sm mt-3 uppercase tracking-wider">
+          <div className="bg-white text-[#E000FF] font-black text-xs px-4 py-1.5 rounded-full mt-3 uppercase tracking-wider">
             {text}
           </div>
         </div>
@@ -28,7 +28,7 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
 
     case 'rounded-gradient':
       return (
-        <div className="p-1 bg-gradient-to-br from-[#FF3B00] via-[#FF8800] to-[#FF0055] rounded-[32px] shadow-md max-w-[220px] mx-auto">
+        <div className="p-1 bg-gradient-to-br from-[#FF3B00] via-[#FF8800] to-[#FF0055] rounded-[32px] max-w-[220px] mx-auto">
           <div className="bg-white p-4 rounded-[28px] flex flex-col items-center justify-center">
             <div className="w-full flex justify-center">
               {children}
@@ -42,7 +42,7 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
 
     case 'tag-blue':
       return (
-        <div className="bg-white border-2 border-[#0052CC] rounded-2xl p-4 shadow-md flex flex-col items-center max-w-[220px] mx-auto">
+        <div className="bg-white border-2 border-[#0052CC] rounded-2xl p-4 flex flex-col items-center max-w-[220px] mx-auto">
           <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 w-full flex justify-center">
             {children}
           </div>
@@ -56,12 +56,12 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
       return (
         <div className="flex flex-col items-center max-w-[220px] mx-auto">
           <div 
-            className="text-white font-extrabold text-[10px] uppercase px-4 py-1 rounded-t-xl tracking-widest shadow-sm z-10 -mb-1"
+            className="text-white font-extrabold text-[10px] uppercase px-4 py-1 rounded-t-xl tracking-widest z-10 -mb-1"
             style={{ backgroundColor: color }}
           >
             {text}
           </div>
-          <div className="p-3 bg-white rounded-2xl border-4 shadow-md w-full flex justify-center" style={{ borderColor: color }}>
+          <div className="p-3 bg-white rounded-2xl border-4 w-full flex justify-center" style={{ borderColor: color }}>
             {children}
           </div>
         </div>
@@ -101,12 +101,12 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
 
 case 'speech-right':
   return (
-    <div className="flex items-center gap-3 bg-white p-4 rounded-2xl border-2 border-slate-100 shadow-md max-w-[240px] mx-auto">
+    <div className="flex items-center gap-3 bg-white p-4 rounded-2xl border-2 border-slate-100 max-w-[240px] mx-auto">
       <div className="p-2 bg-slate-50 rounded-xl border border-slate-200">
         {children}
       </div>
       <div 
-        className="text-white font-black text-xs px-3 py-2 rounded-xl shadow-sm tracking-wide uppercase text-center leading-tight flex-1"
+        className="text-white font-black text-xs px-3 py-2 rounded-xl tracking-wide uppercase text-center leading-tight flex-1"
         style={{ backgroundColor: color }}
       >
         {text}
