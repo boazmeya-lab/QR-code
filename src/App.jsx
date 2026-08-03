@@ -355,8 +355,9 @@ export default function App() {
               </button>
             ))}
           </div>
-        </div>
-      </div>
-    </main>
-  );
+    </div>
+  </main>
+);
 }
+
+export default App;
