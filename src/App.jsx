@@ -195,7 +195,7 @@ export default function App() {
         </main>
 
         <footer className="text-center text-gray-600 text-[11px] sm:text-xs py-3">
-          © 2026 SmartLab - Tous droits réservés.
+          ©️ 2026 SmartLab - Tous droits réservés.
         </footer>
       </div>
     );
@@ -221,12 +221,9 @@ export default function App() {
           
           {/* Zone Aperçu */}
           <div className="flex flex-col items-center justify-center p-6 bg-slate-50 rounded-xl border border-slate-100 min-h-[350px]">
-            
+            <div ref={cardRef} className="bg-white p-6 rounded-xl flex items-center justify-center">
               {renderQRCode()}
             </div>
-             <div ref={cardRef} className="bg-white p-6 rounded-xl flex items-center justify-center">
-  {renderQRCode()}
-</div>
             <button
               onClick={handleDownload}
               className="mt-6 w-full py-3 px-4 bg-[#1D4ED8] hover:bg-[#1e40af] text-white font-semibold rounded-xl transition shadow-sm cursor-pointer text-center"
@@ -333,15 +330,14 @@ export default function App() {
               frameText={frameText}
               setFrameText={setFrameText}
             />
-          
-        
+          </div>
+        </div>
 
         {/* Thèmes de couleur */}
         <div className="bg-[#FFFFFF] p-6 rounded-2xl shadow-sm border border-slate-200">
           <h2 className="text-lg font-bold text-slate-900 mb-4">🎨 Couleurs & Thèmes</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {TEMPLATES.map((tmpl) => (
-      
               <button
                 key={tmpl.id}
                 onClick={() => {
@@ -356,8 +352,7 @@ export default function App() {
             ))}
           </div>
         </div>
-  </main>
-);
+      </main>
+    </div>
+  );
 }
-
-export default App;
