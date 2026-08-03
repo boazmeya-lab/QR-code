@@ -16,20 +16,19 @@ export default function FrameSelector({ selectedFrame, onSelectFrame, frameText,
 
   return (
     <div className="space-y-3 pt-2">
-      <label className="block text-sm font-semibold text-slate-700">🖼️ Modèle du cadre</label>
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-        {frames.map((f) => (
+      <label className="block text-sm font-semibold text-slate-700">Modèles de cadres</label>
+      <div className="grid grid-cols-2 gap-2 max-h-40 overflow-y-auto p-1">
+        {frames.map((frame) => (
           <button
-            key={f.id}
-            type="button"
-            onClick={() => onSelectFrame(f.id)}
-            className={`p-2.5 text-xs font-medium rounded-xl border text-left transition ${
-              selectedFrame === f.id
-                ? 'bg-[#1D4ED8] text-white border-[#1D4ED8] shadow-sm'
-                : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+            key={frame.id}
+            onClick={() => onSelectFrame(frame.id)}
+            className={`p-2 text-xs rounded-lg border text-left transition ${
+              selectedFrame === frame.id
+                ? 'border-blue-600 bg-blue-50 font-bold text-blue-600'
+                : 'border-slate-200 hover:border-slate-300 text-slate-600'
             }`}
           >
-            {f.label}
+            {frame.label}
           </button>
         ))}
       </div>
@@ -41,8 +40,8 @@ export default function FrameSelector({ selectedFrame, onSelectFrame, frameText,
             type="text"
             value={frameText}
             onChange={(e) => setFrameText(e.target.value)}
-            placeholder="SCAN ME !"
-            className="w-full p-2.5 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500"
+            className="w-full p-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            placeholder="Ex: SCANNEZ-MOI"
           />
         </div>
       )}
