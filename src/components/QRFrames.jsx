@@ -69,7 +69,7 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
 
     case 'banner-left':
       return (
-        <div className="flex items-center rounded-2xl overflow-hidden p-1 shadow-md" style={{ backgroundColor: color }}>
+        <div className="flex items-center rounded-2xl overflow-hidden p-1" style={{ backgroundColor: color }}>
           <div className="px-3 py-2 text-white font-black text-xs tracking-wider uppercase text-center max-w-[90px] leading-tight">
             {text}
           </div>
@@ -99,21 +99,21 @@ export const QRFrame = ({ frameType, color = '#111827', text = 'SCAN ME !', chil
         </div>
       );
 
-case 'speech-right':
-  return (
-    <div className="flex items-center gap-3 bg-white p-4 rounded-2xl border-2 border-slate-100 max-w-[240px] mx-auto">
-      <div className="p-2 bg-slate-50 rounded-xl border border-slate-200">
-        {children}
-      </div>
-      <div 
-        className="text-white font-black text-xs px-3 py-2 rounded-xl tracking-wide uppercase text-center leading-tight flex-1"
-        style={{ backgroundColor: color }}
-      >
-        {text}
-      </div>
-    </div>
-  );
-      
+    case 'speech-right':
+      return (
+        <div className="flex items-center gap-3 bg-white p-4 rounded-2xl border-2 border-slate-100 max-w-[240px] mx-auto">
+          <div className="p-2 bg-slate-50 rounded-xl border border-slate-200">
+            {children}
+          </div>
+          <div 
+            className="text-white font-black text-xs px-3 py-2 rounded-xl tracking-wide uppercase text-center leading-tight flex-1"
+            style={{ backgroundColor: color }}
+          >
+            {text}
+          </div>
+        </div>
+      );
+
     case 'none':
     default:
       return <>{children}</>;
